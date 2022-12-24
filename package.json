@@ -1,0 +1,28 @@
+{
+  "name": "koyeb.js",
+  "version": "0.2.0",
+  "description": "An unofficial wrapper for interacting with the Koyeb API.",
+  "main": "koyeb.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Owen3H/Koyeb.js.git"
+  },
+  "keywords": [
+    "koyeb",
+    "koyeb-api",
+    "wrapper",
+    "api"
+  ],
+  "author": "Owen77Stubbs",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Owen3H/Koyeb.js/issues"
+  },
+  "homepage": "https://github.com/Owen3H/Koyeb.js#readme",
+  "dependencies": {
+    "undici": "^5.14.0"
+  }
+}
