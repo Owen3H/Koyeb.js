@@ -8,10 +8,8 @@ import Deployment from './classes/Deployment'
 import Logs from './classes/Logs'
 import Metrics from './classes/Metrics'
 
-const opts = fn.options(token)
-
 //const auth = () => request(fn.domain + '/oauth', opts)
-const getAppList = token => request(fn.domain + '/apps', opts).catch(e => console.log(e))
+const getAppList = token => request(fn.domain + '/apps', fn.options(token)).catch(e => console.log(e))
 
 export default { 
     App, Service, 

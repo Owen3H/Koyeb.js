@@ -1,4 +1,4 @@
-import Koyeb from "./src/koyeb"
+import Koyeb from "./src/koyeb.js"
 
 const myApp = new Koyeb.App()
-console.log(myApp.listServices())
+console.log(await myApp.listServices())

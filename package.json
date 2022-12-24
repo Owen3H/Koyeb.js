@@ -4,7 +4,7 @@
   "description": "An unofficial wrapper for interacting with the Koyeb API.",
   "main": "koyeb.js",
   "scripts": {
-    "test": "npm run test"
+    "test": "node test.js"
   },
   "repository": {
     "type": "git",
@@ -24,5 +24,6 @@
   "homepage": "https://github.com/Owen3H/Koyeb.js#readme",
   "dependencies": {
     "undici": "^5.14.0"
-  }
+  },
+  "type": "module"
 }
