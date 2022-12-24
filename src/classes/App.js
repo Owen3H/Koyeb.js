@@ -1,5 +1,5 @@
 import { request } from "undici"
-import fn from "./utils/fn"
+import fn from "../utils/fn.js"
 
 export default class App {
     #appID = null
@@ -13,5 +13,11 @@ export default class App {
         this.#authToken = token
     }
 
-    listServices = () => request(fn.domain + '/services', fn.options(this.#authToken)).catch(e => console.log(e))
+    listServices = async () => {
+        let res = await request(fn.domain + '/services', fn.options(this.#authToken))
+            .then(res => res.body.json())
+            .catch(e => console.log(e))
+
+        return res.services.filter(service => service.id == this.#appID)
+    }
 }

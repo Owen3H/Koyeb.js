@@ -1,12 +1,12 @@
 import { request, Agent, setGlobalDispatcher } from "undici"
-import fn from "./utils/fn"
+import fn from "./utils/fn.js"
 
-import App from './classes/App'
-import Service from './classes/Service'
-import Instance from './classes/Instance'
-import Deployment from './classes/Deployment'
-import Logs from './classes/Logs'
-import Metrics from './classes/Metrics'
+import App from './classes/App.js'
+import Service from './classes/Service.js'
+import Instance from './classes/Instance.js'
+import Deployment from './classes/Deployment.js'
+import Logs from './classes/Logs.js'
+import Metrics from './classes/Metrics.js'
 
 //const auth = () => request(fn.domain + '/oauth', opts)
 const getAppList = token => request(fn.domain + '/apps', fn.options(token)).catch(e => console.log(e))
