@@ -2,7 +2,7 @@
  An unofficial wrapper for the Koyeb REST API, enabling you to interact with apps, services and more.
  A clean and concise syntax 
  
- > This package depends on [Undici](https://npmjs.com/package/undici), a modern HTTP client with very fast request implementation.
+ > This package depends on [Undici](https://npmjs.com/package/undici), a modern HTTP client with a very fast request implementation.
 
 ## Features
 🟩 Completed
