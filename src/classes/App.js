@@ -1,15 +1,44 @@
 import fn from "../utils/fn.js"
+import { getAppList } from "../koyeb.js"
 
 export default class App {
     #appID = null
     #authToken = null
 
-    constructor(id, token) {
-        if (!id) throw new Error("Parameter 'appID' is required!")
+    constructor(token) {
         if (!token) throw new Error("Parameter 'token' is required!")
-
-        this.#appID = id
         this.#authToken = token
+    }
+
+    fromID = id => {
+        if (!id) throw new Error("Parameter 'appID' is required!")
+        this.#appID = id
+
+        return this
+    }
+
+    fromName = async name => {
+        if (!name) throw new Error("Parameter 'name' is required!")
+        
+        const apps = await getAppList(this.#authToken)
+        const app = await apps.find(app => app.name === name.trim())[0]
+
+        if (!app) throw new Error(`Could not find app with name '${name}'`)
+        this.#appID = app.id
+
+        return this
+    }
+
+    fromIndex = async index => {
+        if (!index && index != 0) throw new Error("Parameter 'index' is required!")
+
+        const apps = await getAppList(this.#authToken)
+        const app = apps[index]
+
+        if (!app) throw new RangeError(`App does not exist at index ${index}`)
+        this.#appID = app.id
+
+        return this
     }
 
     info = async () => {

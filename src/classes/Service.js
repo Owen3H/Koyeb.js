@@ -38,7 +38,7 @@ export default class Service {
     pause    = () => this.#runAction(Service.Actions.PAUSE)
 
     status = async () => {
-        let appInfo = await this.info()
-        return `Status of app '${appInfo.name}':\n ${appInfo.status}`
+        let { name, status } = await this.info()
+        return `Status of app '${name}':\n ${status}`
     }
 }
