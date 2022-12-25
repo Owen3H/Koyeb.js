@@ -1,6 +1,6 @@
 # Koyeb.js
 An unofficial wrapper for the Koyeb REST API, enabling you to interact with apps, services and more.<br>
-Designed to asynchronous with a simple, intuitive syntax.
+Designed to have a simple, intuitive syntax using asynchronous functions.
  
  > This package depends on [Undici](https://npmjs.com/package/undici), a modern HTTP client with a very fast request implementation.
 
