@@ -6,7 +6,7 @@
 
 ## Features
 🟩 Completed
-  - **Multiple app instances (info, listServices)** <br>
+  - **Multiple app instances** (info, listServices)<br>
   - **Service control** (resume, pause, re-deploy)<br>
   
 🟨 In Progress
