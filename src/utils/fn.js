@@ -2,10 +2,10 @@ import { request } from "undici"
 
 const domain = 'https://app.koyeb.com/v1'
 const options = (authToken, reqMethod='GET') => ({
+    method: reqMethod,
     headers: {
-        Authorization: `Bearer ${authToken}`,
-        method: reqMethod
-    }   
+        Authorization: `Bearer ${authToken}`
+    }
 })
 
 const sendRequest = async (url, headers) => {
@@ -17,7 +17,6 @@ const jsonRequest = async (endpoint, token, method='GET') => sendRequest(domain 
     .then(res => res.body.json()).catch(err => console.error(err))
 
 export default {
-    domain, 
-    options, 
-    jsonRequest
+    domain, options, 
+    sendRequest, jsonRequest
 }
