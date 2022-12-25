@@ -1,10 +1,7 @@
-### <img align="left" width="118" height="33" src="https://www.koyeb.com/_next/image?url=%2Fstatic%2Fimages%2Fkoyeb-logo-white.svg&w=128&q=75"> .js 
+## <img align="left" width="132" height="34" src="https://www.koyeb.com/_next/image?url=%2Fstatic%2Fimages%2Fkoyeb-logo-white.svg&w=128&q=75">.js
 
-<br>
-
-#### An unofficial wrapper for the Koyeb REST API, enabling you to interact with apps, services and more. Designed to have a simple, intuitive syntax using asynchronous functions.
-
-<br>
+An unofficial wrapper for the Koyeb REST API, enabling you to interact with apps, services and more. <br>
+Designed to have a simple, intuitive syntax using asynchronous functions. <br>
 
 > This package depends on [Undici](https://npmjs.com/package/undici), a modern HTTP client with a very fast request implementation.
 
@@ -22,3 +19,9 @@
 - Metrics <br>
 - Logs <br>
 - Secrets
+
+## Installation
+```
+$ npm install koyeb.js
+```
+
