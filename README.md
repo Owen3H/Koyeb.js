@@ -4,7 +4,7 @@
  
  > This package depends on [Undici](https://npmjs.com/package/undici), a modern HTTP client with very fast request implementation.
 
-### Features
+## Features
 🟩 Completed
   - **Multiple app instances** <br>
   - **Service control** (resume, pause, re-deploy)<br>
