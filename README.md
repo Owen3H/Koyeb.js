@@ -1,4 +1,4 @@
-# Koyeb.js
+![test](https://www.koyeb.com/_next/image?url=%2Fstatic%2Fimages%2Fkoyeb-logo-white.svg&w=128&q=75) Koyeb.js
 An unofficial wrapper for the Koyeb REST API, enabling you to interact with apps, services and more.<br>
 Designed to have a simple, intuitive syntax using asynchronous functions.
  
