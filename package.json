@@ -25,5 +25,8 @@
   "dependencies": {
     "undici": "^5.14.0"
   },
-  "type": "module"
+  "type": "module",
+  "engines": {
+    "node": ">=16.8.0"
+  }
 }

@@ -1,2 +1,14 @@
+# Custom blacklisted files
 /node_modules
 test.js
+
+# Optional npm cache directory
+.npm
+
+# Output of 'npm pack'
+*.tgz
+
+# Log outputs
+logs
+*.log
+npm-debug.log*
