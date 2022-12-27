@@ -9,8 +9,8 @@ export default class Instance {
         this.#authToken = token
     }
 
-    static latest = (token) => {
-
+    latest = () => {
+        
     }
     
     static get = (id, token) => {

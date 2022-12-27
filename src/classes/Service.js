@@ -4,7 +4,7 @@ export default class Service {
     #serviceID = null
     #authToken = null
 
-    paused = false
+    #paused = false
 
     constructor(id, token) {
         if (!id) throw new Error("Parameter 'serviceID' is required!")
@@ -20,22 +20,34 @@ export default class Service {
         REDEPLOY: 'redeploy'
     }
 
-    info = async () => {
+    async info() {
         const endpoint = `/services/${this.#serviceID}`,
               res = await fn.jsonRequest(endpoint, this.#authToken)
 
         return res ? res.service : console.error(`Request to ${endpoint} failed! Response:\n${res}`)
     }
 
-    paused = async () => this.paused ??= await this.status() == 'PAUSED'
     #runAction = async action => {
         let res = await fn.sendRequest(`${fn.domain}/services/${this.#serviceID}/${action}`, fn.options(this.#authToken, 'POST'))
-        return res.statusCode == 200
+
+        this.#paused = action == 'pause' ? true : false
+        return res?.statusCode == 200
     }
 
     redeploy = () => this.#runAction(Service.Actions.REDEPLOY)
-    resume   = () => this.#runAction(Service.Actions.RESUME)
-    pause    = () => this.#runAction(Service.Actions.PAUSE)
+    resume = () => this.#paused ? false : this.#runAction(Service.Actions.RESUME)
+
+    async paused() { 
+        if (this.#paused) return true
+        return (await this.status()).includes('PAUSED') 
+    }
+
+    pause() {
+        if (this.#paused) return false
+
+        this.paused = true
+        this.#runAction(Service.Actions.PAUSE)
+    }
 
     status = async () => {
         let { name, status } = await this.info()
