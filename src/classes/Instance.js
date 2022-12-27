@@ -49,6 +49,6 @@ export default class Instance {
         })
     }
 
-    executeCommand = async ({command, ttyWidth, ttyHeight, data}) => 
+    executeCommand = ({command, ttyWidth, ttyHeight, data}) => 
         Instance.executeCommand(this.#instanceID, this.#authToken, { command, ttyWidth, ttyHeight, data })
 }
