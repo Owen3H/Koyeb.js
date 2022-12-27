@@ -25,9 +25,13 @@ export default class Instance {
             // Open websocket with auth header
             const socket = new WebSocket('wss://app.koyeb.com/v1/streams/instances/exec', ["Bearer", `${token}`])
 
-            socket.on('error', e => reject(e))
             socket.on('open', () => { 
                 socket.send(JSON.stringify({ id: id, body: body }))
+            })
+
+            socket.on('error', e => {
+                socket.close()
+                reject(e) 
             })
     
             socket.on("message", e => {
@@ -45,8 +49,6 @@ export default class Instance {
         })
     }
 
-    executeCommand = ({command, ttyWidth, ttyHeight, data}) => {
-        let body = { command, ttyWidth, ttyHeight, data }
-        return Instance.executeCommand(this.#instanceID, this.#authToken, body)
-    }
+    executeCommand = async ({command, ttyWidth, ttyHeight, data}) => 
+        Instance.executeCommand(this.#instanceID, this.#authToken, { command, ttyWidth, ttyHeight, data })
 }
