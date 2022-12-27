@@ -23,7 +23,8 @@
   },
   "homepage": "https://github.com/Owen3H/Koyeb.js#readme",
   "dependencies": {
-    "undici": "^5.14.0"
+    "undici": "^5.14.0",
+    "ws": "^8.11.0"
   },
   "type": "module",
   "engines": {

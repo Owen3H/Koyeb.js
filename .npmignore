@@ -1,0 +1,23 @@
+### Files ###
+Makefile
+README.md
+TODO.md
+
+### Utilities ###
+.jshintrc
+.jshintignore
+.travis.yml
+.editorconfig
+
+### Directories ###
+build/
+docs/
+examples/
+reports/
+support/
+test/
+benchmark/
+
+### Git ###
+.gitattributes
+.git*

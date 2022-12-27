@@ -21,10 +21,10 @@ export default class Service {
     }
 
     info = async () => {
-        let res = await fn.jsonRequest('/services/' + this.#serviceID, this.#authToken)
-        if (!res) return
+        const endpoint = `/services/${this.#serviceID}`,
+              res = await fn.jsonRequest(endpoint, this.#authToken)
 
-        return res.service
+        return res ? res.service : console.error(`Request to ${endpoint} failed! Response:\n${res}`)
     }
 
     paused = async () => this.paused ??= await this.status() == 'PAUSED'
