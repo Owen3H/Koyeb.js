@@ -1,23 +1,12 @@
-import fn from "./utils/fn.js"
+const App = require("./classes/App"),
+      Service = require("./classes/Service"),
+      Instance = require("./classes/Instance"),
+      Deployment = require("./classes/Deployment"),
+      Logs = require("./classes/Logs"),
+      Metrics = require("./classes/Metrics")
 
-import App from './classes/App.js'
-import Service from './classes/Service.js'
-import Instance from './classes/Instance.js'
-import Deployment from './classes/Deployment.js'
-import Logs from './classes/Logs.js'
-import Metrics from './classes/Metrics.js'
-
-//const auth = () => request(fn.domain + '/oauth', opts)
-const getAppList = token => fn.jsonRequest('/apps', token)
-    .then(res => res.apps)
-    .catch(e => console.log(e))
-
-export {
-    getAppList
-}
-
-export default { 
+module.exports = {
     App, Service, 
     Instance, Deployment,
-    Logs, Metrics,
+    Logs, Metrics
 }

@@ -1,6 +1,6 @@
-import fn from "../utils/fn.js"
+const fn = require("../utils/fn")
 
-export default class Service {
+module.exports = class Service {
     #serviceID = null
     #authToken = null
 

@@ -1,7 +1,6 @@
 ## <img align="left" width="132" height="34.3" src="https://www.koyeb.com/_next/image?url=%2Fstatic%2Fimages%2Fkoyeb-logo-white.svg&w=128&q=75">.js
 
-An unofficial wrapper for the Koyeb REST API, enabling you to interact with apps, services and more. <br>
-Designed to have a simple, intuitive syntax using asynchronous functions. <br>
+An unofficial wrapper for the Koyeb REST API, enabling you to interact with apps, services and more.<br> Designed to have a simple, intuitive syntax using asynchronous functions.<br>
 
 > This package depends on [Undici](https://npmjs.com/package/undici), a modern HTTP client with a very fast request implementation.
 
@@ -31,8 +30,8 @@ Designed to have a simple, intuitive syntax using asynchronous functions. <br>
   </details>
 
 ## Install and import
-```js
-$ npm install koyeb.js
+```bash
+npm i koyeb.js
 ```
 
 ```js
@@ -66,7 +65,7 @@ await service.resume()
 await service.pause()
 ```
 
-### Get an instance
+### Get an Instance
 ```js
 // Returns the application's current instance.
 const myInstance = await new Koyeb.Instance('accountAuthToken').latest('appID')
@@ -81,8 +80,8 @@ const myInstance = await new Koyeb.Instance('accountAuthToken').get('instanceID'
 // Returns a promise containing the command result.
 const ls = await instance.executeCommand({ command: ['ls'] })
 
-// As stated here: https://www.koyeb.com/docs/api#operation/ExecCommand, you can
-// also pass 3 optional keys (ttyWidth, ttyHeight, data) into the object.
+// You can also pass 3 optional keys (ttyWidth, ttyHeight, data) into the object.
+// More info here -> https://www.koyeb.com/docs/api#operation/ExecCommand
 
 // This example outputs a list of files & directories on the instance.
 console.log(ls) 

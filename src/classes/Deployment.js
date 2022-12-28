@@ -1,8 +1,13 @@
-export default class Deployment {
+module.exports = class Deployment {
     #deploymentID = null
     #authToken = null
+    
+    constructor(token) {
+        this.#authToken = token
+    }
 
-    constructor(options) {
-        
+    get = () => Deployment.get()
+    static get() {
+
     }
 }

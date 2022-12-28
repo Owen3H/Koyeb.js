@@ -1,4 +1,4 @@
-import { request } from "undici"
+const { request } = require("undici")
 
 const domain = 'https://app.koyeb.com/v1'
 const options = (authToken, reqMethod='GET') => ({
@@ -16,7 +16,16 @@ const sendRequest = async (url, headers) => {
 const jsonRequest = async (endpoint, token, method='GET') => sendRequest(domain + endpoint, options(token, method))
     .then(res => res.body.json()).catch(err => console.error(err))
 
-export default {
+const buildURL = (url, params) => {
+    url = new URL(url)
+    params = new URLSearchParams(params)
+    
+    url.search = params.toString()
+    return url
+}
+
+module.exports = {
     domain, options, 
-    sendRequest, jsonRequest
+    sendRequest, jsonRequest, 
+    buildURL
 }

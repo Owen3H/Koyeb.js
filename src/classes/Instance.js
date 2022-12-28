@@ -1,6 +1,6 @@
-import WebSocket from 'ws'
+const WebSocket = require('ws')
 
-export default class Instance {
+module.exports = class Instance {
     #instanceID = null
     #authToken = null
 
