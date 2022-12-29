@@ -1,7 +1,6 @@
 ### Files ###
 Makefile
 TODO.md
-test.js
 
 ### Utilities ###
 .jshintrc
@@ -21,3 +20,7 @@ benchmark/
 ### Git ###
 .gitattributes
 .git*
+
+# Testing
+test.js
+/test-pkg

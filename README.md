@@ -35,8 +35,11 @@ npm i koyeb.js
 ```
 
 ```js
-import Koyeb from 'koyeb.js'
-// Support for CommonJS coming soon!
+// ESM (Supports top-level await)
+import * as Koyeb from 'koyeb.js'
+
+// or
+const Koyeb = require('koyeb.js')
 ```
 
 ### Initialize an App

@@ -1,11 +1,12 @@
 {
   "name": "koyeb.js",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "An unofficial wrapper for interacting with the Koyeb API.",
   "main": "./src/koyeb.js",
+  "module": "./src/koyeb.mjs",
   "exports": {
-    "import": "./src/koyeb.mjs",
-    "require": "./src/koyeb.js"
+    "require": "./src/koyeb.js",
+    "import": "./src/koyeb.mjs"
   },
   "scripts": {
     "test": "node test.js"
@@ -30,8 +31,5 @@
   "dependencies": {
     "undici": "^5.14.0",
     "ws": "^8.11.0"
-  },
-  "engines": {
-    "node": ">=16.8.0"
   }
 }
