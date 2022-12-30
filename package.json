@@ -1,6 +1,6 @@
 {
   "name": "koyeb.js",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "An unofficial wrapper for interacting with the Koyeb API.",
   "main": "./src/koyeb.js",
   "module": "./src/koyeb.mjs",
