@@ -11,6 +11,7 @@ An unofficial wrapper for the Koyeb REST API, enabling you to interact with apps
   - **Service control** (resume, pause, re-deploy)<br>
   - **Get a list of services and apps**<br>
   - **Support for multiple apps using classes**<br>
+  - **Get a specific instance, or the latest**<br>
   - **Execute commands on an instance**
   </details>
 
@@ -18,15 +19,16 @@ An unofficial wrapper for the Koyeb REST API, enabling you to interact with apps
   <summary>🟨 In Progress</summary>
 
   - Deployment & related methods<br>
-  - More instance methods (get, latest, list)
+  - Finish instance & service<br>
+  - Metrics
   </details>
 
   <details>
   <summary>🟥 Not Implemented / Future Ideas</summary>
-
-  - Metrics <br>
+  
   - Logs <br>
   - Secrets
+  - Allow global auth token, so it doesnt need passing to every new class.
   </details>
 
 ## Install and import
