@@ -14,9 +14,10 @@ module.exports = class Instance {
         const res = await fn.jsonRequest('/instances?limit=1', this.#authToken)
         return res.instances[0]
     }
-    
-    static get = (id, token) => {
-        
+
+    get = async () => {
+        const res = await fn.jsonRequest(`/instances/${this.#instanceID}`, this.#authToken)
+        return res.instance
     }
 
     executeCommand = (body={command, ttyWidth, ttyHeight, data}) => 
