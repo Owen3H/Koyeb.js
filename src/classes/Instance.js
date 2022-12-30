@@ -1,4 +1,5 @@
-const WebSocket = require('ws')
+const WebSocket = require('ws'),
+      fn = require('../utils/fn')
 
 module.exports = class Instance {
     #instanceID = null
@@ -9,13 +10,17 @@ module.exports = class Instance {
         this.#authToken = token
     }
 
-    latest = () => {
-        
+    latest = async () => {
+        const res = await fn.jsonRequest('/instances?limit=1', this.#authToken)
+        return res.instances[0]
     }
     
     static get = (id, token) => {
         
     }
+
+    executeCommand = (body={command, ttyWidth, ttyHeight, data}) => 
+        Instance.executeCommand(this.#instanceID, this.#authToken, body)
 
     static executeCommand = (id, token, body={command, ttyWidth, ttyHeight, data}) => {
         if (!body.command) throw new (`Must provide a command to execute on instance '${id}'`)
@@ -24,9 +29,21 @@ module.exports = class Instance {
         return new Promise((resolve, reject) => {
             // Open websocket with auth header
             const socket = new WebSocket('wss://app.koyeb.com/v1/streams/instances/exec', ["Bearer", `${token}`])
+            
+            const msg = { 
+                id: id, 
+                body: {
+                    command: body.command,
+                    stdin: { data: body.data },
+                    tty_size: {
+                        height: body.ttyHeight,
+                        width: body.ttyWidth
+                    }
+                }
+            }
 
             socket.on('open', () => { 
-                socket.send(JSON.stringify({ id: id, body: body }))
+                socket.send(JSON.stringify(msg))
             })
 
             socket.on('error', e => {
@@ -48,7 +65,4 @@ module.exports = class Instance {
             })
         })
     }
-
-    executeCommand = ({command, ttyWidth, ttyHeight, data}) => 
-        Instance.executeCommand(this.#instanceID, this.#authToken, { command, ttyWidth, ttyHeight, data })
 }

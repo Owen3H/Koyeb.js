@@ -79,13 +79,11 @@ const myInstance = await new Koyeb.Instance('accountAuthToken').get('instanceID'
 
 ### Execute commands
 ```js
-
 // Returns a promise containing the command result.
-const ls = await instance.executeCommand({ command: ['ls'] })
-
-// You can also pass 3 optional keys (ttyWidth, ttyHeight, data) into the object.
-// More info here -> https://www.koyeb.com/docs/api#operation/ExecCommand
-
 // This example outputs a list of files & directories on the instance.
-console.log(ls) 
+const ls = await instance.executeCommand({ command: ['ls'] })
+console.log(ls)
+
+// You can also pass 3 optional keys (ttyWidth, ttyHeight, data).
+// More info -> https://www.koyeb.com/docs/api#operation/ExecCommand
 ```
