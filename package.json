@@ -9,7 +9,7 @@
     "import": "./src/koyeb.mjs"
   },
   "scripts": {
-    "test": "node test.js"
+    "test": "cd test-pkg & node test.js"
   },
   "funding": "https://github.com/sponsors/Owen3H",
   "repository": {

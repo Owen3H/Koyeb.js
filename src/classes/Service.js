@@ -1,17 +1,21 @@
 const fn = require("../utils/fn")
 
 module.exports = class Service {
-    #serviceID = null
     #authToken = null
+
+    #serviceID = null
+    #serviceURL = ''
 
     #paused = false
 
     constructor(id, token) {
-        if (!id) throw new Error("Parameter 'serviceID' is required!")
-        if (!token) throw new Error("Parameter 'token' is required!")
+        if (!id) throw new Error(`Invalid id parameter '${id}'`)
+        if (!token) throw new Error(`Invalid token parameter '${token}'`)
 
         this.#serviceID = id
         this.#authToken = token
+
+        this.#serviceURL = `${fn.domain}/services/${this.#serviceID}`
     }
 
     static Actions = {
@@ -26,31 +30,29 @@ module.exports = class Service {
 
         return res ? res.service : console.error(`Request to ${endpoint} failed! Response:\n${res}`)
     }
-
-    #runAction = async action => {
-        let res = await fn.sendRequest(`${fn.domain}/services/${this.#serviceID}/${action}`, fn.options(this.#authToken, 'POST'))
-
-        this.#paused = action == 'pause' ? true : false
-        return res?.statusCode == 200
+    
+    status = async () => {
+        let { name, status } = await this.info()
+        return `Status of app '${name}':\n ${status}`
     }
 
-    redeploy = () => this.#runAction(Service.Actions.REDEPLOY)
-    resume = () => this.#paused ? false : this.#runAction(Service.Actions.RESUME)
+    update = () => fn.sendRequest(this.#serviceURL, fn.options(this.#authToken, 'PATCH'))
 
-    async paused() { 
-        if (this.#paused) return true
-        return (await this.status()).includes('PAUSED') 
-    }
-
+    paused = async () => this.#paused || (await this.status()).includes('PAUSED') 
     pause() {
         if (this.#paused) return false
 
         this.paused = true
         this.#runAction(Service.Actions.PAUSE)
-    }
+    }    
 
-    status = async () => {
-        let { name, status } = await this.info()
-        return `Status of app '${name}':\n ${status}`
+    resume = () => this.#paused ? false : this.#runAction(Service.Actions.RESUME)
+    redeploy = () => this.#runAction(Service.Actions.REDEPLOY)
+
+    #runAction = async action => {
+        let res = await fn.sendRequest(`${this.#serviceURL}/${action}`, fn.options(this.#authToken, 'POST'))
+
+        this.#paused = action == 'pause' ? true : false
+        return res?.statusCode == 200
     }
 }

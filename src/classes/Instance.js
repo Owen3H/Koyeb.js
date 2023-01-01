@@ -6,17 +6,22 @@ module.exports = class Instance {
     #authToken = null
 
     constructor(id, token) {
+        if (!id) throw new Error(`Invalid id parameter '${id}'`)
+        if (!token) throw new Error(`Invalid token parameter '${token}'`)
+
         this.#instanceID = id
         this.#authToken = token
     }
 
-    latest = async () => {
-        const res = await fn.jsonRequest('/instances?limit=1', this.#authToken)
+    latest = () => Instance.latest(this.#authToken)
+    static latest = async (token) => {
+        const res = await fn.jsonRequest('/instances?limit=1', token)
         return res.instances[0]
     }
 
-    get = async () => {
-        const res = await fn.jsonRequest(`/instances/${this.#instanceID}`, this.#authToken)
+    get = () => Instance.get(this.#instanceID, this.#authToken)
+    static get = async (id, token) => {
+        const res = await fn.jsonRequest(`/instances/${id}`, token)
         return res.instance
     }
 

@@ -1,17 +1,16 @@
-const fn = require("../utils/fn")
+const { jsonRequest, getToken } = require("../utils/fn")
 
 module.exports = class App {
     #appID = null
     #authToken = null
 
-    constructor(token) {
-        if (!token) throw new Error("Parameter 'token' is required!")
+    constructor(token=getToken()) {
+        if (!token) throw new Error('Invalid token or no global token set.')
         this.#authToken = token
     }
 
-    static list = async token => fn.jsonRequest('/apps', token)
-        .then(res => res.apps)
-        .catch(e => console.log(e))
+    static list = token => jsonRequest('/apps', token ?? globalToken)
+        .then(res => res.apps).catch(e => console.log(e))
 
     fromID = id => {
         if (!id) throw new Error("Parameter 'appID' is required!")
@@ -24,11 +23,12 @@ module.exports = class App {
         if (!name) throw new Error("Parameter 'name' is required!")
         
         const apps = await App.list(this.#authToken)
+        if (!apps) return
+
         const app = await apps.find(app => app.name === name.trim())[0]
-
         if (!app) throw new Error(`Could not find app with name '${name}'`)
-        this.#appID = app.id
 
+        this.#appID = app.id
         return this
     }
 
@@ -45,14 +45,14 @@ module.exports = class App {
     }
 
     info = async () => {
-        let res = await fn.jsonRequest('/apps/' + this.#appID, this.#authToken)
+        let res = await jsonRequest('/apps/' + this.#appID, this.#authToken)
         if (!res) return
 
         return res.app
     }
 
     listServices = async () => {
-        let res = await fn.jsonRequest('/services', this.#authToken)
+        let res = await jsonRequest('/services', this.#authToken)
         if (!res) return
 
         return res.services.filter(service => service.app_id == this.#appID)

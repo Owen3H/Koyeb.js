@@ -3,10 +3,13 @@ const App = require("./classes/App"),
       Instance = require("./classes/Instance"),
       Deployment = require("./classes/Deployment"),
       Logs = require("./classes/Logs"),
-      Metrics = require("./classes/Metrics")
+      Metrics = require("./classes/Metrics"),
+      { setToken, getToken } = require("./utils/fn")
 
 module.exports = {
     App, Service, 
     Instance, Deployment,
-    Logs, Metrics
+    Logs, Metrics,
+    setGlobalToken: setToken,
+    getGlobalToken: getToken
 }
