@@ -1,18 +1,18 @@
 const Undici = require("undici")
 
+//#region Global token auth
 var globalToken
 
-const getToken = () => globalToken
+const getToken = () => globalToken || null
 const setToken = token => new Promise((resolve, reject) => {
-    console.log(token)
+    if (!token) return reject('Could not set global auth token! Token is invalid.')
 
-    if (!token) reject('Could not set global auth token! Token is invalid.')
-    else {
-        globalToken = token
-        resolve(token)
-    }
+    globalToken = token
+    resolve(token)
 }).catch(e => { throw new Error(e) })
+//#endregion
 
+//#region Simple helper vars
 const domain = 'https://app.koyeb.com/v1'
 const options = (authToken, reqMethod='GET') => ({
     method: reqMethod,
@@ -20,7 +20,9 @@ const options = (authToken, reqMethod='GET') => ({
         Authorization: `Bearer ${globalToken ?? authToken}`
     }
 })
+//#endregion
 
+//#region URL/Request Helper Methods
 const sendRequest = async (url, headers) => {
     try { return await Undici.request(url, headers) } 
     catch (e) { return console.error(e) }
@@ -38,6 +40,7 @@ const buildURL = (url, params) => {
     url.search = params.toString()
     return url
 }
+//#endregion
 
 module.exports = {
     domain, options, 

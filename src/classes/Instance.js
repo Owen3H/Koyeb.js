@@ -1,5 +1,5 @@
-const WebSocket = require('ws'),
-      fn = require('../utils/fn')
+const fn = require('../utils/fn'),
+      Console = require('../utils/Console')
 
 module.exports = class Instance {
     #instanceID = null
@@ -32,43 +32,18 @@ module.exports = class Instance {
         if (!body.command) throw new (`Must provide a command to execute on instance '${id}'`)
         //if (!body.data) throw new Error(`Data passed to instance '${id}' must be base64 encoded!`)
 
-        return new Promise((resolve, reject) => {
-            // Open websocket with auth header
-            const socket = new WebSocket('wss://app.koyeb.com/v1/streams/instances/exec', ["Bearer", `${token}`])
-            
-            const msg = { 
-                id: id, 
-                body: {
-                    command: body.command,
-                    stdin: { data: body.data },
-                    tty_size: {
-                        height: body.ttyHeight,
-                        width: body.ttyWidth
-                    }
+        const msg = { 
+            id: id, 
+            body: {
+                command: body.command,
+                stdin: { data: body.data },
+                tty_size: {
+                    height: body.ttyHeight,
+                    width: body.ttyWidth
                 }
             }
+        }
 
-            socket.on('open', () => { 
-                socket.send(JSON.stringify(msg))
-            })
-
-            socket.on('error', e => {
-                socket.close()
-                reject(e) 
-            })
-    
-            socket.on("message", e => {
-                const event = JSON.parse(e),
-                      out = event?.result?.stdout
-
-                socket.close()
-
-                if (!out) resolve(event)
-                else {
-                    const msg = Buffer.from(out.data, 'base64')
-                    resolve(msg.toString())
-                }
-            })
-        })
+        return Console.exec('wss://app.koyeb.com/v1/streams/instances/exec', token, msg)
     }
 }
