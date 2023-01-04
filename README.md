@@ -1,4 +1,4 @@
-## <img align="left" width="132" height="34.3" src="https://www.koyeb.com/_next/image?url=%2Fstatic%2Fimages%2Fkoyeb-logo-white.svg&w=128&q=75">.js
+## <img align="left" width="132" height="34.3" src="https://downloads.intercomcdn.com/i/o/259496/2f1b0c68697b5cd2dc9e81c7/ce1a70662d1063913f39915281fa9628.png">.js
 
 An unofficial wrapper for the Koyeb REST API, enabling you to interact with apps, services and more.<br> Designed to have a simple, intuitive syntax using asynchronous functions.<br>
 
@@ -28,7 +28,6 @@ An unofficial wrapper for the Koyeb REST API, enabling you to interact with apps
   
   - Logs <br>
   - Secrets
-  - Allow global auth token, so it doesnt need passing to every new class.
   </details>
 
 ## Install and import
@@ -73,7 +72,7 @@ await service.pause()
 ### Get an Instance
 ```js
 // Returns the application's current instance.
-const myInstance = await new Koyeb.Instance('accountAuthToken').latest('appID')
+const myInstance = await new Koyeb.Instance('accountAuthToken').latest()
 
 // Or get a specific instance by its ID.
 const myInstance = await new Koyeb.Instance('accountAuthToken').get('instanceID')
