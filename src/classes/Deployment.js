@@ -1,3 +1,5 @@
+const fn = require('../utils/fn')
+
 module.exports = class Deployment {
     #deploymentID = null
     #authToken = null
@@ -9,8 +11,11 @@ module.exports = class Deployment {
         this.#authToken = token
     }
 
-    get = () => Deployment.get()
-    static get() {
-        
+    get = () => Deployment.get(this.#deploymentID, this.#authToken)
+    static async get (id, token) {
+        const endpoint = `/deployments/${id}`,
+              res = await fn.jsonRequest(endpoint, token)
+
+        return res?.deployment ?? console.error(`Request to ${endpoint} failed! Response:\n${res}`)
     }
 }

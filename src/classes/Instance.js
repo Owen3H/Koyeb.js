@@ -14,22 +14,24 @@ module.exports = class Instance {
     }
 
     latest = () => Instance.latest(this.#authToken)
-    static latest = async (token) => {
+    static async latest(token) {
         const res = await fn.jsonRequest('/instances?limit=1', token)
-        return res.instances[0]
+        return res?.instances ? res.instances[0] : console.error(`Failed to get latest instance!\nResponse:\n${res}`)
     }
 
     get = () => Instance.get(this.#instanceID, this.#authToken)
-    static get = async (id, token) => {
+    static async get(id, token) {
         const res = await fn.jsonRequest(`/instances/${id}`, token)
-        return res.instance
+        return res?.instance ?? console.error(`Failed to get instance: ${id}\nResponse:\n${res}`)
     }
 
     executeCommand = (body={command, ttyWidth, ttyHeight, data}) => 
         Instance.executeCommand(this.#instanceID, this.#authToken, body)
 
     static executeCommand = (id, token, body={command, ttyWidth, ttyHeight, data}) => {
-        if (!body.command) throw new (`Must provide a command to execute on instance '${id}'`)
+        if (!body.command || body.command.length < 1) 
+            throw new (`Cannot execute empty or invalid command on instance: ${id}`)
+
         //if (!body.data) throw new Error(`Data passed to instance '${id}' must be base64 encoded!`)
 
         const msg = { 

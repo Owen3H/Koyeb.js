@@ -28,7 +28,7 @@ module.exports = class Service {
         const endpoint = `/services/${this.#serviceID}`,
               res = await fn.jsonRequest(endpoint, this.#authToken)
 
-        return res ? res.service : console.error(`Request to ${endpoint} failed! Response:\n${res}`)
+        return res?.service ?? console.error(`Request to ${endpoint} failed! Response:\n${res}`)
     }
     
     status = async () => {
