@@ -19,8 +19,7 @@
   "keywords": [
     "koyeb",
     "koyeb-api",
-    "wrapper",
-    "api"
+    "koyeb-wrapper"
   ],
   "author": "Owen77Stubbs",
   "license": "GPL-3.0",
@@ -31,5 +30,8 @@
   "dependencies": {
     "undici": "^5.14.0",
     "ws": "^8.11.0"
+  },
+  "engines": {
+    "node": "^14.13.1 || >=16.0.0"
   }
 }
