@@ -1,7 +1,7 @@
 const Undici = require("undici")
 
 //#region Global token auth
-var globalToken
+let globalToken
 
 const getToken = () => globalToken || null
 const setToken = token => new Promise((resolve, reject) => {

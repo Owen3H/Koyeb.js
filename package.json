@@ -19,7 +19,9 @@
   "keywords": [
     "koyeb",
     "koyeb-api",
-    "koyeb-wrapper"
+    "koyeb-wrapper",
+    "api-wrapper",
+    "wrapper"
   ],
   "author": "Owen77Stubbs",
   "license": "GPL-3.0",

@@ -3,17 +3,12 @@ Makefile
 TODO.md
 
 ### Utilities ###
-.jshintrc
-.jshintignore
-.travis.yml
 .editorconfig
 
 ### Directories ###
 build/
 docs/
 examples/
-reports/
-support/
 test/
 benchmark/
 
@@ -22,5 +17,4 @@ benchmark/
 .git*
 
 # Testing
-test.js
 /test-pkg
