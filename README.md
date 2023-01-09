@@ -1,5 +1,7 @@
 ## <img align="left" width="132" height="34.3" src="https://downloads.intercomcdn.com/i/o/259496/2f1b0c68697b5cd2dc9e81c7/ce1a70662d1063913f39915281fa9628.png">.js
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/91786907b9cc499e9df83e8c8d1c790e)](https://app.codacy.com/gh/Owen3H/Koyeb.js?utm_source=github.com&utm_medium=referral&utm_content=Owen3H/Koyeb.js&utm_campaign=Badge_Grade_Settings)
+
 An unofficial wrapper for the Koyeb REST API, enabling you to interact with apps, services and more.<br> Designed to have a simple, intuitive syntax using asynchronous functions.<br>
 
 > This package depends on [Undici](https://npmjs.com/package/undici), a modern HTTP client with a very fast request implementation.
