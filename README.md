@@ -1,5 +1,7 @@
 ## <img align="left" width="132" height="34.3" src="https://downloads.intercomcdn.com/i/o/259496/2f1b0c68697b5cd2dc9e81c7/ce1a70662d1063913f39915281fa9628.png">.js
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/77a5d15fa73d426c8210e8606a357e73)](https://www.codacy.com/gh/Owen3H/Koyeb.js/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Owen3H/Koyeb.js&amp;utm_campaign=Badge_Grade) [![Commit Activity](https://img.shields.io/github/commit-activity/m/Owen3H/Koyeb.js?color=yellow&label=Commit%20Activity&logo=git&logoColor=white)](https://github.com/Owen3H/Koyeb.js) [![Github Repo Size](https://img.shields.io/github/repo-size/Owen3H/Koyeb.js?label=Repository%20Size&logo=Github)](https://github.com/Owen3H/Koyeb.js)
+
 An unofficial wrapper for the Koyeb REST API, enabling you to interact with apps, services and more.<br> Designed to have a simple, intuitive syntax using asynchronous functions.<br>
 
 > This package depends on [Undici](https://npmjs.com/package/undici), a modern HTTP client with a very fast request implementation.
