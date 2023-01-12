@@ -14,8 +14,9 @@ const setToken = token => new Promise((resolve, reject) => {
 
 //#region Simple helper vars
 const domain = 'https://app.koyeb.com/v1'
-const options = (authToken, reqMethod='GET') => ({
+const options = (authToken, reqMethod='GET', body=null) => ({
     method: reqMethod,
+    body: body,
     headers: {
         Authorization: `Bearer ${globalToken ?? authToken}`
     }

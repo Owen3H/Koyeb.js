@@ -1,4 +1,5 @@
-const { jsonRequest, getToken } = require("../utils/fn")
+const { jsonRequest, getToken } = require("../utils/fn"),
+      Service = require("./Service")
 
 module.exports = class App {
     #appID = null
@@ -51,10 +52,16 @@ module.exports = class App {
         return res.app
     }
 
-    listServices = async () => {
-        let res = await jsonRequest('/services', this.#authToken)
-        if (!res) return
-
-        return res.services.filter(service => service.app_id == this.#appID)
+    Services = {
+        all: async () => {
+            let res = await jsonRequest('/services', this.#authToken)
+            if (!res) return
+    
+            return res.services.filter(service => service.app_id == this.#appID)
+        },
+        latest: async () => {
+            const id = await this.Services.all().then(services => services[0].id)
+            return new Service(id, this.#authToken)
+        }
     }
 }

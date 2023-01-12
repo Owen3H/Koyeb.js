@@ -36,7 +36,26 @@ module.exports = class Service {
         return `Status of app '${name}':\n ${status}`
     }
 
-    update = () => fn.sendRequest(this.#serviceURL, fn.options(this.#authToken, 'PATCH'))
+    #currentDeployment = () => fn.jsonRequest(`/deployments?service_id=${this.#serviceID}`).then(arr => arr.deployments[0])
+
+    setEnv = async (key, value) => {
+        let deployment = await this.#currentDeployment(),
+            vars = deployment.definition?.env ?? []
+
+        // Filter out vars that don't match the key name.
+        let arr = vars.filter(v => v.key === key),
+            index = arr.indexOf(arr[0])
+
+        // Add or update key
+        if (arr.length) arr[index]['value'] = value
+        else vars.push({ scopes: vars[0].scopes, key, value })
+
+        // Send patch request with updated definition
+        const body = JSON.stringify({ "definition": deployment.definition })
+        //console.log(body)
+
+        return await fn.sendRequest(this.#serviceURL, fn.options(this.#authToken, 'PATCH', body)).then(res => res.body.text())
+    }
 
     paused = async () => this.#paused || (await this.status()).includes('PAUSED') 
     pause() {

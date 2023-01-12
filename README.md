@@ -34,7 +34,7 @@ An unofficial wrapper for the Koyeb REST API, enabling you to interact with apps
   - Secrets
   </details>
 
-## Install and import
+## Install & Import
 ```bash
 npm i koyeb.js
 ```
@@ -47,9 +47,20 @@ import * as Koyeb from 'koyeb.js'
 const Koyeb = require('koyeb.js')
 ```
 
+### Secure your Auth Token
+1. Head to Account ➟ API
+2. Create a new access token and copy the generated string.
+3. Head to your app settings ➟ Environment Variables ➟ Add Variable
+4. Name the variable `AUTH_TOKEN` and paste your copied token in the 'value' field.
+5. Hit 'Apply'. You can now access your token without exposing it to others!
+
+```js
+const token = process.env.AUTH_TOKEN
+```
+
 ### Initialize an App
 ```js
-const myApp = await new Koyeb.App('accountAuthToken').fromName('appName')
+const myApp = await new Koyeb.App(token).fromName('appName')
 
 // Alternatively, you can replace fromName with 2 other methods.
 .fromID('13j25-4323b2-671f') // The ID of the application.
