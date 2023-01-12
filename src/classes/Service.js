@@ -51,10 +51,11 @@ module.exports = class Service {
         else vars.push({ scopes: vars[0].scopes, key, value })
 
         // Send patch request with updated definition
-        const body = JSON.stringify({ "definition": deployment.definition })
-        //console.log(body)
-
-        return await fn.sendRequest(this.#serviceURL, fn.options(this.#authToken, 'PATCH', body)).then(res => res.body.text())
+        const body = { "definition": deployment.definition }
+        
+        return await fn.sendRequest(this.#serviceURL, 
+            fn.options(this.#authToken, 'PATCH', JSON.stringify(body))
+        ).then(res => res.body.text())
     }
 
     paused = async () => this.#paused || (await this.status()).includes('PAUSED') 

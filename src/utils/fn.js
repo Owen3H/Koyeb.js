@@ -18,6 +18,7 @@ const options = (authToken, reqMethod='GET', body=null) => ({
     method: reqMethod,
     body: body,
     headers: {
+        "Content-Type": "application/json; charset=UTF-8",
         Authorization: `Bearer ${globalToken ?? authToken}`
     }
 })
