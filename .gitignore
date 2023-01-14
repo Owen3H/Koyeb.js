@@ -2,7 +2,6 @@
 /node_modules
 
 # Testing
-test.js
 /test-pkg
 
 # Optional npm cache directory

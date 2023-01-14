@@ -17,4 +17,5 @@ benchmark/
 .git*
 
 # Testing
-/test-pkg
+/test-pkg/node_modules
+/test-pkg/.env
