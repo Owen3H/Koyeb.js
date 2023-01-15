@@ -22,7 +22,7 @@ const exec = (url, token, msg) => new Promise((resolve, reject) => {
     let sent = cs.sendJSON(msg)
     if (!sent) reject(sent)
     
-    .on('message', e => {
+    cs.on('message', e => {
         const event = JSON.parse(e),
               out = event?.result?.stdout
 

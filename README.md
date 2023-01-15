@@ -87,10 +87,10 @@ await service.pause()
 ### Get an Instance
 ```js
 // Returns the application's current instance.
-const myInstance = await new Koyeb.Instance('accountAuthToken').latest()
+const myInstance = await new Koyeb.Instance(appID, token).latest()
 
 // Or get a specific instance by its ID.
-const myInstance = await new Koyeb.Instance('accountAuthToken').get('instanceID')
+const myInstance = await new Koyeb.Instance.get(instanceID, token)
 ```
 
 ### Execute commands

@@ -13,6 +13,10 @@ const setToken = token => new Promise((resolve, reject) => {
 //#endregion
 
 //#region Simple helper vars
+const isBase64 = (str='') => encode(decode(str)) == str
+const decode = str => Buffer.from(str, 'base64')
+const encode = buffer => buffer.toString('base64')
+
 const domain = 'https://app.koyeb.com/v1'
 const options = (authToken, reqMethod='GET', body=null) => ({
     method: reqMethod,
@@ -47,5 +51,6 @@ const buildURL = (url, params) => {
 module.exports = {
     domain, options, 
     buildURL, sendRequest, jsonRequest, 
-    setToken, getToken
+    isBase64, decode, encode,
+    setToken, getToken,
 }

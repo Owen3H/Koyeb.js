@@ -5,7 +5,7 @@ module.exports = class Instance {
     #instanceID = null
     #authToken = null
 
-    constructor(id, token) {
+    constructor(id, token=fn.getToken()) {
         if (!id) throw new Error(`Invalid id parameter '${id}'`)
         if (!token) throw new Error(`Invalid token parameter '${token}'`)
 
@@ -29,19 +29,21 @@ module.exports = class Instance {
         Instance.executeCommand(this.#instanceID, this.#authToken, body)
 
     static executeCommand = (id, token, body={command, ttyWidth, ttyHeight, data}) => {
-        if (!body.command || body.command.length < 1) 
-            throw new (`Cannot execute empty or invalid command on instance: ${id}`)
+        let { command, data, ttyWidth, ttyHeight } = body
 
-        //if (!body.data) throw new Error(`Data passed to instance '${id}' must be base64 encoded!`)
+        if (!command || command.length < 1) throw new (`Cannot execute empty or invalid command on instance: ${id}`)
+        //if (!data) throw new Error(`Invalid parameter 'data' cannot be passed to instance: ${id}`)
 
+        // If decoded matches original, data is already encoded.
+        const encoded = fn.isBase64(data) ? data : fn.encode(data) 
         const msg = { 
             id: id, 
             body: {
-                command: body.command,
-                stdin: { data: body.data },
+                command: command,
+                stdin: { data: encoded },
                 tty_size: {
-                    height: body.ttyHeight,
-                    width: body.ttyWidth
+                    height: ttyHeight,
+                    width: ttyWidth
                 }
             }
         }

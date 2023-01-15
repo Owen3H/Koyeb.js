@@ -44,18 +44,15 @@ module.exports = class Service {
 
         // Filter out vars that don't match the key name.
         let arr = vars.filter(v => v.key === key),
-            index = arr.indexOf(arr[0])
+            index = vars.indexOf(arr[0])
 
         // Add or update key
-        if (arr.length) arr[index]['value'] = value
+        if (arr.length) vars[index]['value'] = value
         else vars.push({ scopes: vars[0].scopes, key, value })
 
         // Send patch request with updated definition
-        const body = { "definition": deployment.definition }
-        
-        return await fn.sendRequest(this.#serviceURL, 
-            fn.options(this.#authToken, 'PATCH', JSON.stringify(body))
-        ).then(res => res.body.text())
+        const body = JSON.stringify({ "definition": deployment.definition })
+        return await fn.sendRequest(this.#serviceURL, fn.options(this.#authToken, 'PATCH', body)).then(res => res.body.text())
     }
 
     paused = async () => this.#paused || (await this.status()).includes('PAUSED') 
