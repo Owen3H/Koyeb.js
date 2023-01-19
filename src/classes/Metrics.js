@@ -4,17 +4,17 @@ module.exports = class Metrics {
     #serviceID = null
     #authToken = null
 
+    static MEM_RSS           = 'MEM_RSS'
     static CPU_TOTAL_PERCENT = 'CPU_TOTAL_PERCENT'
-    static MEM_RSS = 'MEM_RSS'
 
-    static HTTP_THROUGHPUT = 'HTTP_THROUGHPUT'
-    static HTTP_RESPONSE_TIME_50P = 'HTTP_RESPONSE_TIME_50P'
-    static HTTP_RESPONSE_TIME_99P = 'HTTP_RESPONSE_TIME_99P'
-    static HTTP_RESPONSE_TIME_90P = 'HTTP_RESPONSE_TIME_90P'
-    static HTTP_RESPONSE_TIME_MAX = 'HTTP_RESPONSE_TIME_MAX'
-
-    static PUBLIC_DATA_TRANSFER_IN = 'PUBLIC_DATA_TRANSFER_IN'
+    static PUBLIC_DATA_TRANSFER_IN  = 'PUBLIC_DATA_TRANSFER_IN'
     static PUBLIC_DATA_TRANSFER_OUT = 'PUBLIC_DATA_TRANSFER_OUT'
+    
+    static HTTP_THROUGHPUT        = 'HTTP_THROUGHPUT'
+    static HTTP_RESPONSE_TIME_50P = 'HTTP_RESPONSE_TIME_50P'
+    static HTTP_RESPONSE_TIME_90P = 'HTTP_RESPONSE_TIME_90P'
+    static HTTP_RESPONSE_TIME_99P = 'HTTP_RESPONSE_TIME_99P'
+    static HTTP_RESPONSE_TIME_MAX = 'HTTP_RESPONSE_TIME_MAX'
 
     constructor(token, id) {
         this.#authToken = token
