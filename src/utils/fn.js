@@ -29,15 +29,16 @@ const options = (authToken, reqMethod='GET', body=null) => ({
 //#endregion
 
 //#region URL/Request Helper Methods
-const sendRequest = async (url, headers) => {
-    try { return await Undici.request(url, headers) } 
+const sendRequest = async (url, opts) => {
+    try { return await Undici.request(url, opts) } 
     catch (e) { return console.error(e) }
 }
 
-const jsonRequest = (endpoint, token, method='GET') => 
-    sendRequest(domain + endpoint, options(token, method))
-        .then(res => res.body.json())
-        .catch(err => console.error(err))
+const textRequest = (url, opts) => sendRequest(url, opts)
+    .then(res => res.body.text()).catch(err => console.error(err))
+
+const jsonRequest = (endpoint, token, method='GET') => sendRequest(domain + endpoint, options(token, method))
+    .then(res => res.body.json()).catch(err => console.error(err))
 
 const buildURL = (url, params) => {
     url = new URL(url)
@@ -50,7 +51,7 @@ const buildURL = (url, params) => {
 
 module.exports = {
     domain, options, 
-    buildURL, sendRequest, jsonRequest, 
+    buildURL, sendRequest, textRequest, jsonRequest, 
     isBase64, decode, encode,
     setToken, getToken,
 }
