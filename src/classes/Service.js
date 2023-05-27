@@ -58,8 +58,8 @@ module.exports = class Service {
     paused = async () => this.#paused || (await this.status()).includes('PAUSED') 
     pause() {
         if (this.#paused) return false
-
-        this.paused = true
+        this.#paused = true
+        
         this.#runAction(Service.Actions.PAUSE)
     }    
 
