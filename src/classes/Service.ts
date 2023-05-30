@@ -1,56 +1,7 @@
-const fn = require("../utils/fn")
+import * as fn from "../utils/fn.js"
+import { currentDeployment, Environment } from "./Environment"
 
-const currentDeployment = (id: string | number) => 
-    fn.jsonRequest(`/deployments?service_id=${id}`).then((arr: DeploymentList) => arr.deployments[0])
-
-class Environment {
-    #authToken: string
-
-    #serviceID: string | number
-    #serviceURL: string
-    
-    #deployment: Deployment
-    #vars: DeploymentEnv[]
-    
-    constructor(token: string, id: string | number, url: string) {
-        this.#authToken = token
-        this.#serviceID = id
-        this.#serviceURL = url
-    }
-
-    async #sendUpdate() {
-        // Send patch request with updated definition
-        const body = JSON.stringify({ "definition": this.#deployment.definition })
-        return await fn.textRequest(this.#serviceURL, fn.options(this.#authToken, 'PATCH', body))
-    }
-
-    async #filterVars(key: string) {
-        this.#deployment = await currentDeployment(this.#serviceID)
-        this.#vars = this.#deployment.definition?.env ?? []
-
-        // Filter out vars that don't match the key name.
-        return this.#vars.filter(v => v.key === key)
-    }
-
-    deleteVariable = async (key: string) => {
-        let arr = await this.#filterVars(key),
-            index = this.#vars.indexOf(arr[0])
-
-        delete this.#vars[index]
-        await this.#sendUpdate()
-    }
-
-    setVariable = async (key: string, value: string) => {
-        let arr = await this.#filterVars(key),
-            index = this.#vars.indexOf(arr[0])
-
-        // Add or update key
-        if (arr.length) this.#vars[index]['value'] = value
-        else this.#vars.push({ scopes: this.#vars[0].scopes, key, value })
-
-        await this.#sendUpdate()
-    }
-}
+import * as Undici from "undici"
 
 type ActionType = 'pause' | 'resume' | 'redeploy'
 const enum Actions {
@@ -81,8 +32,6 @@ export default class Service {
         this.Environment = new Environment(this.#authToken, this.#serviceID, this.#serviceURL)
     }
 
-
-
     async info() {
         const endpoint = `/services/${this.#serviceID}`,
               res = await fn.jsonRequest(endpoint, this.#authToken)
@@ -109,7 +58,7 @@ export default class Service {
     redeploy = () => this.#runAction(Actions.REDEPLOY)
 
     #runAction = async (action: Actions | ActionType) => {
-        let res = await fn.sendRequest(`${this.#serviceURL}/${action}`, fn.options(this.#authToken, 'POST'))
+        let res = await fn.sendRequest(`${this.#serviceURL}/${action}`, fn.options(this.#authToken, 'POST')) as Undici.Dispatcher.ResponseData
 
         this.#paused = action == 'pause' ? true : false
         return res?.statusCode == 200
