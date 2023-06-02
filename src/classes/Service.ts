@@ -1,5 +1,5 @@
-import * as fn from "../utils/fn.js"
-import { currentDeployment, Environment } from "./Environment"
+import * as fn from "../utils/fn.cjs"
+import { currentDeployment, Environment } from "./Environment.ts"
 
 import * as Undici from "undici"
 

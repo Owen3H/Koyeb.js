@@ -1,4 +1,4 @@
-const fn = require("../utils/fn")
+import * as fn from "../utils/fn.cjs"
 
 const currentDeployment = (id: string | number) => 
     fn.jsonRequest(`/deployments?service_id=${id}`).then((arr: DeploymentList) => arr.deployments[0])

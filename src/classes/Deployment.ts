@@ -1,6 +1,6 @@
-const fn = require('../utils/fn')
+import * as fn from '../utils/fn.cjs'
 
-module.exports = class Deployment {
+export default class Deployment {
     #deploymentID: string | number
     #authToken: string
     

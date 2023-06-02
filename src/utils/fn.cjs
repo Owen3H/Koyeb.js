@@ -53,5 +53,5 @@ module.exports = {
     domain, options, 
     buildURL, sendRequest, textRequest, jsonRequest, 
     isBase64, decode, encode,
-    setToken, getToken,
+    setToken, getToken
 }

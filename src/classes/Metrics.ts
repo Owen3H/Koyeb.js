@@ -1,8 +1,18 @@
-const fn = require('../utils/fn')
+import * as fn from '../utils/fn.cjs'
+import * as Undici from 'undici'
 
-module.exports = class Metrics {
-    #serviceID = null
-    #authToken = null
+type MetricQuery = {
+    service_id: string
+    instance_id?: string
+    name: string
+    start?: string
+    end?: string
+    step?: '5m'
+}
+
+export default class Metrics {
+    #serviceID: string
+    #authToken: string
 
     static MEM_RSS           = 'MEM_RSS'
     static CPU_TOTAL_PERCENT = 'CPU_TOTAL_PERCENT'
@@ -16,22 +26,22 @@ module.exports = class Metrics {
     static HTTP_RESPONSE_TIME_99P = 'HTTP_RESPONSE_TIME_99P'
     static HTTP_RESPONSE_TIME_MAX = 'HTTP_RESPONSE_TIME_MAX'
 
-    constructor(token, id) {
+    constructor(token: string, id: string) {
         this.#authToken = token
         this.#serviceID = id
     }
 
-    get = metric => Metrics.get(this.#authToken, {
+    get = (metric: string = "UNKNOWN") => Metrics.get(this.#authToken, {
         service_id: this.#serviceID,
         name: metric
     })
 
-    static async get(token, query={ service_id, instance_id, name: 'UNKNOWN', start, end, step: '5m' }) {
+    static async get(token: string, query: MetricQuery) {
         if (!query.service_id && !query.instance_id) return
         if (!query.name) return
 
         let url = fn.buildURL(fn.domain + '/streams/metrics', query)
-        let res = await fn.sendRequest(url, fn.options(token)).then(res => res.body.json())
+        let res = await fn.sendRequest(url, fn.options(token)).then(res => (res as Undici.Dispatcher.ResponseData).body.json())
 
         return res.metrics
     }
