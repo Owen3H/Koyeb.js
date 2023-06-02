@@ -32,7 +32,7 @@ export default class Service {
         this.Environment = new Environment(this.#authToken, this.#serviceID, this.#serviceURL)
     }
 
-    async info() {
+    async info() : Promise<IService> {
         const endpoint = `/services/${this.#serviceID}`,
               res = await fn.jsonRequest(endpoint, this.#authToken)
 
@@ -53,6 +53,11 @@ export default class Service {
         this.#paused = true
         this.#runAction(Actions.PAUSE)
     }    
+
+    delete = async () => {
+        const res = await fn.sendRequest(`${this.#serviceURL}`, fn.options(this.#authToken, 'DELETE')) as Undici.Dispatcher.ResponseData
+        return res?.statusCode == 200
+    }
 
     resume = () => this.#paused ? false : this.#runAction(Actions.RESUME)
     redeploy = () => this.#runAction(Actions.REDEPLOY)

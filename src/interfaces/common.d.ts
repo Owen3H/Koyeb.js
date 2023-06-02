@@ -3,22 +3,27 @@ interface KeyValue {
     value: string
 }
 
-interface WsCommandBody {
-    command: string[],
-    /** Must be Base64 encoded! */
-    data?: string,
-    ttyHeight?: number,
-    ttyWidth?: number
+interface BaseError {
+    status: number
+    code: string
+    message: string
 }
 
-interface WsMessage {
-    id: string, 
-    body: {
-        command: string[],
-        stdin: { data: string },
-        tty_size: {
-            height: number,
-            width: number
-        }
-    }
+interface ErrorField {
+    field: string
+    description: string
+}
+
+interface ValidationError extends BaseError {
+    fields: ErrorField[]
+}
+
+interface EventDateTimes {
+    created_at: string
+    updated_at: string
+    started_at: string
+    succeeded_at: string
+    paused_at: string
+    resumed_at: string
+    terminated_at: string
 }

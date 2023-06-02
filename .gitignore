@@ -1,5 +1,6 @@
-# Custom blacklisted files
+# Custom exclusions
 /node_modules
+/dist
 
 # Testing
 /test-pkg

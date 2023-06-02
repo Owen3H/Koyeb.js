@@ -1,6 +1,4 @@
-
-
-interface Deployment extends DeploymentStatusDates, DeploymentIds {
+interface IDeployment extends DeploymentStatusDates, DeploymentIds {
     status: "PENDING" | "PROVISIONING" | "SCHEDULED" | "CANCELING" | "CANCELED" | 
             "ALLOCATING" | "STARTING" | "HEALTHY" | "UNHEALTHY" | "DEGRADED" | 
             "STOPPING" | "STOPPED" | "ERRORING" | "ERROR"
@@ -33,7 +31,7 @@ interface DeploymentIds {
 }
 
 interface DeploymentList {
-    deployments: Deployment[]
+    deployments: IDeployment[]
     limit: number
     offset: number
     count: number

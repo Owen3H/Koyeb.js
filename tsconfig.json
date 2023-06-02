@@ -13,6 +13,7 @@
         "noEmit": true,
         "allowImportingTsExtensions": true
     },
+    "exclude": ["test-pkg", "node_modules"],
     "ts-node": {
         "esm": true,
         "transpileOnly": true,
