@@ -2,11 +2,11 @@
   "name": "koyeb.js",
   "version": "2.4.4",
   "description": "An unofficial wrapper for interacting with the Koyeb API.",
-  "main": "./src/koyeb.js",
+  "main": "./src/koyeb.cjs",
   "module": "./src/koyeb.mjs",
   "type": "module",
   "exports": {
-    "require": "./src/koyeb.js",
+    "require": "./src/koyeb.cjs",
     "import": "./src/koyeb.mjs"
   },
   "scripts": {
@@ -32,7 +32,6 @@
   },
   "homepage": "https://github.com/Owen3H/Koyeb.js#readme",
   "dependencies": {
-    "ts-node": "^10.9.1",
     "tslib": "^2.5.3",
     "undici": "^5.14.0",
     "ws": "^8.11.0"

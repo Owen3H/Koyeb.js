@@ -1,4 +1,4 @@
-import * as fn from '../utils/fn.cjs'
+import * as fn from '../utils/fn.js'
 import { Console, exec } from '../utils/Console.js'
 
 export default class Instance {
@@ -25,7 +25,6 @@ export default class Instance {
     }
 
     latest = () => Instance.latest(this.#authToken)
-
     static async latest(token: string) {
         const res = await fn.jsonRequest('/instances?limit=1', token)
         return res?.instances ? res.instances[0] : console.error(`Failed to get latest instance!\nResponse:\n${res}`)

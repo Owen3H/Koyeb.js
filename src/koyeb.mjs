@@ -10,4 +10,4 @@ export { default as Metrics } from './classes/Metrics.ts'
 export {
     getToken as getGlobalToken,
     setToken as setGlobalToken 
-} from './utils/fn.cjs'
+} from './utils/fn.ts'

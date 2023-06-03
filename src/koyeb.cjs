@@ -4,7 +4,7 @@ const App = require("./classes/App"),
       Deployment = require("./classes/Deployment"),
       Logs = require("./classes/Logs"),
       Metrics = require("./classes/Metrics"),
-      { setToken, getToken } = require("./utils/fn.cjs")
+      { setToken, getToken } = require("./utils/fn")
 
 module.exports = {
     App, Service, 

@@ -1,4 +1,4 @@
-import * as fn from "../utils/fn.cjs"
+import * as fn from "../utils/fn.js"
 import { currentDeployment, Environment } from "./Environment.ts"
 
 import { APIResponse } from "../interfaces/helpers"

@@ -1,5 +1,5 @@
-import { jsonRequest, getToken } from "../utils/fn.cjs"
-import { default as Service } from "./Service.ts"
+import { jsonRequest, getToken } from "../utils/fn.js"
+import { default as Service } from "./Service.js"
 
 export default class App {
     #appID: string

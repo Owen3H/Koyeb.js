@@ -1,5 +1,5 @@
 interface MetricsQuery {
-    name: MetricType | MetricTypes
+    name: string | MetricType | MetricTypes
     service_id: string
     instance_id?: string
     start?: string

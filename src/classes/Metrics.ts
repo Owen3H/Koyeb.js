@@ -1,5 +1,5 @@
 import { APIResponse } from '../interfaces/helpers'
-import * as fn from '../utils/fn.cjs'
+import * as fn from '../utils/fn'
 
 export default class Metrics {
     #serviceID: string

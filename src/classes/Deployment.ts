@@ -1,4 +1,4 @@
-import * as fn from '../utils/fn.cjs'
+import * as fn from '../utils/fn.js'
 
 export default class Deployment {
     #deploymentID: string | number
