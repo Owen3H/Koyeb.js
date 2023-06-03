@@ -1,5 +1,5 @@
 // Provide main classes
-export { default as App } from './classes/App.js'
+export { default as App } from './classes/App.ts'
 export { default as Service } from './classes/Service.ts'
 export { default as Instance } from './classes/Instance.ts'
 export { default as Deployment } from './classes/Deployment.ts'

@@ -10,7 +10,7 @@
     "import": "./src/koyeb.mjs"
   },
   "scripts": {
-    "test": "cd test-pkg & node test.js",
+    "test": "cd test-pkg & npm test",
     "build": "tsc --noEmit false"
   },
   "funding": "https://github.com/sponsors/Owen3H",
@@ -33,6 +33,7 @@
   "homepage": "https://github.com/Owen3H/Koyeb.js#readme",
   "dependencies": {
     "ts-node": "^10.9.1",
+    "tslib": "^2.5.3",
     "undici": "^5.14.0",
     "ws": "^8.11.0"
   },
@@ -41,6 +42,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.2.5",
-    "@types/ws": "^8.5.4"
+    "@types/ws": "^8.5.4",
+    "perf_hooks": "^0.0.1"
   }
 }

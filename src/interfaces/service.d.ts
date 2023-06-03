@@ -33,3 +33,10 @@ interface AutoReleaseGroup {
     git_ref: string
     latest_sha: string
 }
+
+type ActionType = 'pause' | 'resume' | 'redeploy'
+declare const enum Actions {
+    PAUSE = 'pause',
+    RESUME = 'resume',
+    REDEPLOY = 'redeploy'
+}

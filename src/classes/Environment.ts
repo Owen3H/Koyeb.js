@@ -9,7 +9,7 @@ class Environment {
     #serviceID: string | number
     #serviceURL: string
     
-    #deployment: Deployment
+    #deployment: IDeployment
     #vars: DeploymentEnv[]
     
     constructor(token: string, id: string | number, url: string) {

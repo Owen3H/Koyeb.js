@@ -24,7 +24,7 @@ export default class App {
         if (!name) throw new Error("Parameter 'name' is required!")
         
         const apps = await App.list(this.#authToken)
-        if (!apps) return
+        if (!apps) throw new Error(`Unable to fetch app list!'`)
 
         const app = await apps.find((app: any) => app.name === name.trim())[0]
         if (!app) throw new Error(`Could not find app with name '${name}'`)

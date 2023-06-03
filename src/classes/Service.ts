@@ -1,14 +1,7 @@
 import * as fn from "../utils/fn.cjs"
 import { currentDeployment, Environment } from "./Environment.ts"
 
-import * as Undici from "undici"
-
-type ActionType = 'pause' | 'resume' | 'redeploy'
-const enum Actions {
-    PAUSE = 'pause',
-    RESUME = 'resume',
-    REDEPLOY = 'redeploy'
-}
+import { APIResponse } from "../interfaces/helpers"
 
 export default class Service {
     #authToken: string
@@ -32,11 +25,16 @@ export default class Service {
         this.Environment = new Environment(this.#authToken, this.#serviceID, this.#serviceURL)
     }
 
-    async info() : Promise<IService> {
+    async info() : Promise<IService | null> {
         const endpoint = `/services/${this.#serviceID}`,
               res = await fn.jsonRequest(endpoint, this.#authToken)
 
-        return res?.service ?? console.error(`Request to ${endpoint} failed! Response:\n${res}`)
+        if (!res.service) {
+            console.error(`Request to ${endpoint} failed! Response:\n${res}`)
+            return null
+        }
+
+        return res?.service
     }
     
     status = async () => {
@@ -47,15 +45,15 @@ export default class Service {
     currentDeployment = () => currentDeployment(this.#serviceID)
 
     paused = async () => this.#paused || (await this.status()).includes('PAUSED') 
-    pause() {
+    async pause(): Promise<false | void> {
         if (this.#paused) return false
 
         this.#paused = true
-        this.#runAction(Actions.PAUSE)
+        await this.#runAction(Actions.PAUSE)
     }    
 
-    delete = async () => {
-        const res = await fn.sendRequest(`${this.#serviceURL}`, fn.options(this.#authToken, 'DELETE')) as Undici.Dispatcher.ResponseData
+    async delete() {
+        const res = await fn.sendRequest(`${this.#serviceURL}`, fn.options(this.#authToken, 'DELETE')) as APIResponse
         return res?.statusCode == 200
     }
 
@@ -63,7 +61,7 @@ export default class Service {
     redeploy = () => this.#runAction(Actions.REDEPLOY)
 
     #runAction = async (action: Actions | ActionType) => {
-        let res = await fn.sendRequest(`${this.#serviceURL}/${action}`, fn.options(this.#authToken, 'POST')) as Undici.Dispatcher.ResponseData
+        let res = await fn.sendRequest(`${this.#serviceURL}/${action}`, fn.options(this.#authToken, 'POST')) as APIResponse
 
         this.#paused = action == 'pause' ? true : false
         return res?.statusCode == 200
