@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "module": "ES2022",
+        "target": "ES2017",
+        "outDir": "dist",
+        "moduleResolution": "node",
+        "allowJs": true,
+        "noImplicitAny": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "types": ["node"],
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "noEmit": true,
+        "allowImportingTsExtensions": true,
+        "importHelpers": true,
+        "experimentalDecorators": true,
+        "skipDefaultLibCheck": true,
+        "skipLibCheck": true
+    },
+    "exclude": ["test-pkg", "node_modules", "src/decorators"]
+}

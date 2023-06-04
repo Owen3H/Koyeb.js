@@ -1,11 +1,11 @@
-const WebSocket = require('ws')
+import WebSocket from 'ws'
 
 class Console extends WebSocket {
-    constructor(url, options) {
-        super(url, options)
+    constructor(url: string, token: string) {
+        super(url, ["Bearer", `${token}`])
     }
 
-    sendJSON = msg => {
+    sendJSON = (msg: WsMessage) => {
         if (!msg) return `Invalid message '${msg}' could not be executed!`
 
         this.on('open', () => this.send(JSON.stringify(msg)))
@@ -13,20 +13,15 @@ class Console extends WebSocket {
     }
 }
 
-const exec = (url, token, msg) => new Promise((resolve, reject) => {
-    const cs = new Console(url, ["Bearer", `${token}`]).on('error', e => {
-        cs.close()
-        reject(e) 
-    })
-
-    let sent = cs.sendJSON(msg)
+const exec = (ws: Console, msg: WsMessage) => new Promise((resolve, reject) => {
+    let sent = ws.sendJSON(msg)
     if (!sent) reject(sent)
     
-    cs.on('message', e => {
+    ws.on('message', (e: any) => {
         const event = JSON.parse(e),
               out = event?.result?.stdout
 
-        cs.close()
+        ws.close()
 
         if (!out) resolve(event)
         else {
@@ -36,6 +31,6 @@ const exec = (url, token, msg) => new Promise((resolve, reject) => {
     })
 })
 
-module.exports = {
+export {
     Console, exec
 }

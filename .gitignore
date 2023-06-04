@@ -1,5 +1,7 @@
-# Custom blacklisted files
+# Custom exclusions
 /node_modules
+src/decorators
+/dist
 
 # Testing
 /test-pkg

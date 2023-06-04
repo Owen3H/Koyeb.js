@@ -1,10 +1,10 @@
-const fn = require('../utils/fn')
+import * as fn from '../utils/fn.js'
 
-module.exports = class Deployment {
-    #deploymentID = null
-    #authToken = null
+export default class Deployment {
+    #deploymentID: string | number
+    #authToken: string
     
-    constructor(id, token) {
+    constructor(id: string | number, token: string) {
         if (!id) throw new Error(`Invalid id parameter '${id}'`)
         if (!token) throw new Error(`Invalid token parameter '${token}'`)
 
@@ -12,7 +12,7 @@ module.exports = class Deployment {
     }
 
     get = () => Deployment.get(this.#deploymentID, this.#authToken)
-    static async get (id, token) {
+    static async get (id: string | number, token: string) {
         const endpoint = `/deployments/${id}`,
               res = await fn.jsonRequest(endpoint, token)
 
