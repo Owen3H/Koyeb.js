@@ -15,7 +15,7 @@ const setToken = (token: string) => new Promise((resolve, reject) => {
 
 //#region Simple helper vars
 const isBase64 = (str: string = '') => encode(decode(str)) == str
-const decode = (str: string)=> Buffer.from(str, 'base64')
+const decode = (str: string) => Buffer.from(str, 'base64')
 const encode = (buffer: Buffer) => buffer.toString('base64')
 
 // interface ReqOptions {

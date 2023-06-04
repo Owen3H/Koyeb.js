@@ -1,7 +1,7 @@
 interface WsCommandBody {
     command: string[],
     /** Must be Base64 encoded! */
-    data?: string,
+    data?: string | Buffer,
     ttyHeight?: number,
     ttyWidth?: number
 }

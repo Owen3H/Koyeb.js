@@ -45,8 +45,12 @@ export default class Instance {
 
         //if (!data) throw new Error(`Invalid parameter 'data' cannot be passed to instance: ${id}`)
 
-        // If decoded matches original, data is already encoded.
-        const encoded = fn.isBase64(data) ? data : fn.encode(data) 
+        //#region Try encode the data if not already base64.
+        let encoded = null
+        if (data instanceof Buffer) data = fn.encode(data)
+        else if (fn.isBase64(data)) encoded = data
+        //#endregion
+
         const msg = { 
             id: id, 
             body: {
