@@ -1,4 +1,4 @@
-interface WsCommandBody {
+type WsCommandBody = {
     command: string[],
     /** Must be Base64 encoded! */
     data?: string | Buffer,
@@ -6,7 +6,7 @@ interface WsCommandBody {
     ttyWidth?: number
 }
 
-interface WsMessage {
+type WsMessage = {
     id: string, 
     body: {
         command: string[],

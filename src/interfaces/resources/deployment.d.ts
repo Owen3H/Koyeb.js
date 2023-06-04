@@ -1,10 +1,8 @@
-interface IDeployment extends DeploymentStatusDates, DeploymentIds {
+type IDeployment = DeploymentStatusDates & DeploymentIds & {
     status: "PENDING" | "PROVISIONING" | "SCHEDULED" | "CANCELING" | "CANCELED" | 
             "ALLOCATING" | "STARTING" | "HEALTHY" | "UNHEALTHY" | "DEGRADED" | 
             "STOPPING" | "STOPPED" | "ERRORING" | "ERROR"
-    metadata: {
-        trigger: GitTrigger
-    }
+    metadata: { trigger: GitTrigger }
     definition: DeploymentDefinition
     messages: string[]
     provisioning_info: DeploymentProvisioningInfo
@@ -12,7 +10,7 @@ interface IDeployment extends DeploymentStatusDates, DeploymentIds {
     deployment_group: string
 }
 
-interface DeploymentStatusDates {
+type DeploymentStatusDates = {
     created_at: string
     updated_at: string
     allocated_at: string
@@ -21,7 +19,7 @@ interface DeploymentStatusDates {
     terminated_at: string
 }
 
-interface DeploymentIds {
+type DeploymentIds = {
     id: string
     organization_id: string
     app_id: string
@@ -30,19 +28,19 @@ interface DeploymentIds {
     child_id: string
 }
 
-interface DeploymentList {
+type DeploymentList = {
     deployments: IDeployment[]
     limit: number
     offset: number
     count: number
 }
 
-interface DeploymentInstanceType {
+type DeploymentInstanceType = {
     scopes: string[]
     type: string
 }
 
-interface DeploymentHealthCheck {
+type DeploymentHealthCheck = {
     grace_period: number
     interval: number
     restart_limit: number
@@ -56,30 +54,30 @@ interface DeploymentHealthCheck {
     }
 }
 
-interface DeploymentPort {
+type DeploymentPort = {
     port: number
     protocol: "tcp" | "http" | "http2"
 }
 
-interface DeploymentRoute {
+type DeploymentRoute = {
     port: number
     path: string
 }
 
-interface DeploymentEnv {
+type DeploymentEnv = {
     scopes: string[]
     key: string
     value: string
     secret?: string
 }
 
-interface DeploymentScaling {
+type DeploymentScaling = {
     scopes: string[]
     min: number
     max: number
 }
 
-interface DeploymentDefinition {
+type DeploymentDefinition = {
     name: string
     type: "INVALID" | "WEB" | "WORKER"
     routes: DeploymentRoute[]
@@ -94,7 +92,7 @@ interface DeploymentDefinition {
     git?: GitSource
 }
 
-interface DeploymentBuildAttempt {
+type DeploymentBuildAttempt = {
     id: number
     status: "UNKNOWN" | "RUNNING" | "FAILED" | "COMPLETED"
     messages: string[]
@@ -102,12 +100,12 @@ interface DeploymentBuildAttempt {
     finished_at: string
 }
 
-interface DeploymentProvisioningInfoStage extends Omit<DeploymentBuildAttempt, "id"> {
+type DeploymentProvisioningInfoStage = Omit<DeploymentBuildAttempt, "id"> & {
     name: string
     build_attempts: DeploymentBuildAttempt[]
 }
 
-interface DeploymentProvisioningInfo {
+type DeploymentProvisioningInfo = {
     sha: string
     image: string
     stages: DeploymentProvisioningInfoStage[]

@@ -16,24 +16,24 @@ type GitSource = GitBaseMetadata & BuildpackBuilder & {
     docker?: DockerBuilder
 }
 
-interface DockerBaseMetadata {
+type DockerBaseMetadata = {
     command: string
     args: string[]
     entrypoint: string[]
 }
 
-interface BuildpackBuilder {
+type BuildpackBuilder = {
     build_command: string
     run_command: string
 }
 
-interface GitBaseMetadata {
+type GitBaseMetadata = {
     repository: string
     branch: string
     sha: string
 }
 
-interface GitTrigger {
+type GitTrigger = {
     type: "UNKNOWN_TYPE" | "GIT" | "RESUME"
     actor: "UNKNOWN_ACTOR" | "USER" | "SYSTEM"
     git: GitBaseMetadata & {

@@ -1,7 +1,7 @@
 import * as fn from "../utils/fn.js"
 import { currentDeployment, Environment } from "./Environment.ts"
 
-import { APIResponse } from "../interfaces/helpers"
+import { APIResponse } from "../interfaces/common/helpers"
 
 export default class Service {
     #authToken: string

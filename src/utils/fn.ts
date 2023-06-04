@@ -1,4 +1,4 @@
-import {Readable} from 'stream'
+import { Readable } from 'stream'
 import { request, Dispatcher } from 'undici'
 
 //#region Global token auth

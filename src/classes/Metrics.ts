@@ -1,4 +1,4 @@
-import { APIResponse } from '../interfaces/helpers'
+import { APIResponse } from '../interfaces/common/helpers'
 import * as fn from '../utils/fn'
 
 export default class Metrics {

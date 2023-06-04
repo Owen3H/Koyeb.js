@@ -1,10 +1,16 @@
-interface MetricsQuery {
+type MetricsQuery = {
     name: string | MetricType | MetricTypes
     service_id: string
     instance_id?: string
     start?: string
     end?: string
     step?: string
+}
+
+type StringNumArr = string[] | number[]
+type MetricsResponse = {
+    labels: { [key: string]: string }
+    values: StringNumArr[]
 }
 
 type MetricType = 'MEM_RSS' | 'CPU_TOTAL_PERCENT' | 'PUBLIC_DATA_TRANSFER_IN' | 

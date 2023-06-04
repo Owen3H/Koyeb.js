@@ -1,15 +1,8 @@
-interface IApp extends AppBaseMetadata {
-    domains: Domain[]
+type IApp = AppBaseMetadata & {
+    domains: IDomain[]
 }
 
-interface Domain extends AppBaseMetadata {
-    type: "AUTOASSIGNED" | "CUSTOM"
-    deployment_group: string
-    verified_at: string
-    intented_cname: string
-}
-
-interface AppBaseMetadata {
+type AppBaseMetadata = {
     name: string
     id: string
     app_id: string
@@ -18,4 +11,8 @@ interface AppBaseMetadata {
             "DELETING" | "DELETED" | "PAUSING" | "PAUSED" | "RESUMING"
     messages: string[]
     version: string
+}
+
+type AppListResponse = ResponseListItem & {
+    apps: IApp[]
 }

@@ -1,33 +1,33 @@
-interface IService extends ServiceListItem, EventDateTimes {
+type IService = ServiceListItem & EventDateTimes & {
     active_deployment_id: string
     latest_deployment_id: string
     state: ServiceState
 }
 
-interface ServiceListItem extends AppBaseMetadata {
+type ServiceListItem = AppBaseMetadata & {
     updated_at: string
     created_at: string
 }
 
-interface ServiceState {
+type ServiceState = {
     desired_deployment: DesiredDeployment
     auto_release: AutoRelease
 }
 
-interface DesiredDeployment {
+type DesiredDeployment = {
     groups: DesiredDeploymentGroup[]
 }
 
-interface DesiredDeploymentGroup {
+type DesiredDeploymentGroup = {
     name: string
     deployment_ids: string[]
 }
 
-interface AutoRelease {
+type AutoRelease = {
     groups: AutoReleaseGroup[]
 }
 
-interface AutoReleaseGroup {
+type AutoReleaseGroup = {
     name: string
     repository: string
     git_ref: string
