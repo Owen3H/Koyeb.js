@@ -1,7 +1,7 @@
 type MetricsQuery = {
     name: string | MetricType | MetricTypes
-    service_id: string
-    instance_id?: string
+    service_id?: string
+    instance_id: string
     start?: string
     end?: string
     step?: string
