@@ -46,16 +46,15 @@ export default class Instance {
         //if (!data) throw new Error(`Invalid parameter 'data' cannot be passed to instance: ${id}`)
 
         //#region Try encode the data if not already base64.
-        let encoded = null
         if (data instanceof Buffer) data = fn.encode(data)
-        else if (fn.isBase64(data)) encoded = data
+        else data = fn.isBase64(data) ? data : null
         //#endregion
 
         const msg = { 
             id: id, 
             body: {
                 command: command,
-                stdin: { data: encoded },
+                stdin: { data },
                 tty_size: {
                     height: ttyHeight,
                     width: ttyWidth
