@@ -42,6 +42,7 @@
   "devDependencies": {
     "@types/node": "^20.2.5",
     "@types/ws": "^8.5.4",
-    "perf_hooks": "^0.0.1"
+    "perf_hooks": "^0.0.1",
+    "typescript": "^5.1.3"
   }
 }

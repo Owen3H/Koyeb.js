@@ -18,11 +18,5 @@
         "skipDefaultLibCheck": true,
         "skipLibCheck": true
     },
-    "exclude": ["test-pkg", "node_modules", "src/decorators"],
-    "ts-node": { 
-        "esm": true,
-        "transpileOnly": true,
-        "files": true,
-        "experimentalSpecifierResolution": "node"
-    }
+    "exclude": ["test-pkg", "node_modules", "src/decorators"]
 }

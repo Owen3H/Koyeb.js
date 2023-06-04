@@ -51,15 +51,14 @@ export default class Instance {
         //#endregion
 
         const msg = { 
-            id: id, 
             body: {
-                command: command,
+                command,
                 stdin: { data },
                 tty_size: {
                     height: ttyHeight,
                     width: ttyWidth
                 }
-            }
+            }, id
         }
         
         if (!this.#consoleWs) {
