@@ -35,8 +35,3 @@ type AutoReleaseGroup = {
 }
 
 type ActionType = 'pause' | 'resume' | 'redeploy'
-declare const enum Actions {
-    PAUSE = 'pause',
-    RESUME = 'resume',
-    REDEPLOY = 'redeploy'
-}

@@ -9,6 +9,10 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "types": ["node"],
+        "typeRoots": [
+            "src/interfaces",
+            "node_modules/@types"
+        ],
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "noEmit": true,
