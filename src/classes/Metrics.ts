@@ -1,5 +1,4 @@
 //@ts-nocheck
-
 import { APIResponse } from '../interfaces/common/helpers'
 import { MetricTypes } from '../utils/enums'
 
@@ -9,12 +8,17 @@ export default class Metrics {
     #instanceID: string
     #authToken: string
 
-    constructor(token: string, id: string) {
-        this.#authToken = token
+    constructor(id: string, token?: string) {
+        if (!id) throw new Error(`Invalid id parameter '${id}'`)
+
         this.#instanceID = id
+        this.#authToken = fn.checkValidToken(token)
     }
 
-    static async all(token: string, id: number | string, includeLabels: boolean = true) {
+    all = (id: string, includeLabels: boolean = true) => Metrics.all(id, includeLabels, this.#authToken)
+    static async all(id: number | string, includeLabels: boolean = true, token: string) {
+        fn.checkValidToken(token)
+
         const values = Object.values(MetricTypes)
         let collection: MetricCollection = {}
 
@@ -33,14 +37,16 @@ export default class Metrics {
         return collection
     }
 
-    get = (metric: MetricType | MetricTypes) => Metrics.get(this.#authToken, {
-        instance_id: this.#instanceID,
+    get = (metric: MetricType | MetricTypes) => Metrics.get({ 
+        instance_id: this.#instanceID, 
         name: metric 
-    })
+    }, this.#authToken)
 
-    static async get(token: string, query: MetricsQuery) {
+    static async get(query: MetricsQuery, token: string) {
         if (!query.instance_id) throw new Error('Must specify `instance_id` to query Metrics.')
         if (!query.name) throw new Error('Must specify `name` to query the correct metric.')
+
+        fn.checkValidToken(token)
 
         let url = fn.buildURL(fn.domain + '/streams/metrics', query)
         let res = await fn.sendRequest(url, fn.options(token)).then(res => (res as APIResponse).body.json())

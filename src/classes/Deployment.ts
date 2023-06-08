@@ -1,18 +1,18 @@
 import * as fn from '../utils/fn.js'
 
 export default class Deployment {
-    #deploymentID: string | number
+    #deploymentID: string
     #authToken: string
     
-    constructor(id: string | number, token: string) {
+    constructor(id: string, token?: string) {
         if (!id) throw new Error(`Invalid id parameter '${id}'`)
-        if (!token) throw new Error(`Invalid token parameter '${token}'`)
-
-        this.#authToken = token
+        this.#authToken = fn.checkValidToken(token)
     }
 
     get = () => Deployment.get(this.#deploymentID, this.#authToken)
-    static async get (id: string | number, token: string) {
+    static async get (id: string, token?: string) {
+        fn.checkValidToken(token)
+
         const endpoint = `/deployments/${id}`,
               res = await fn.jsonRequest(endpoint, token)
 

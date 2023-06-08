@@ -1,21 +1,23 @@
 import * as fn from "../utils/fn.js"
 
-const currentDeployment = (id: string | number) => 
-    fn.jsonRequest(`/deployments?service_id=${id}`).then((arr: DeploymentList) => arr.deployments[0])
-
+const currentDeployment = (id: string, token: string) =>
+    fn.jsonRequest(`/deployments?service_id=${id}`, token).then((arr: DeploymentList) => arr.deployments[0])
+    
 class Environment {
     #authToken: string
 
-    #serviceID: string | number
+    #serviceID: string
     #serviceURL: string
     
     #deployment: IDeployment
     #vars: DeploymentEnv[]
     
-    constructor(token: string, id: string | number, url: string) {
-        this.#authToken = token
+    constructor(id: string, token?: string) {
+        this.#authToken = fn.checkValidToken(token)
+        if (!id) throw new Error(`Invalid id parameter '${id}'`)
+
         this.#serviceID = id
-        this.#serviceURL = url
+        this.#serviceURL = `${fn.domain}/services/${id}`
     }
 
     async #sendUpdate() {
@@ -25,7 +27,7 @@ class Environment {
     }
 
     async #filterVars(key: string) {
-        this.#deployment = await currentDeployment(this.#serviceID)
+        this.#deployment = await currentDeployment(this.#serviceID, this.#authToken)
         this.#vars = this.#deployment.definition?.env ?? []
 
         // Filter out vars that don't match the key name.

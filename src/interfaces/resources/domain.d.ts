@@ -8,3 +8,11 @@ type IDomain = AppBaseMetadata & {
 type DomainListResponse = ResponseListItem & {
     domains: IDomain[]
 }
+
+type DomainStatus = "PENDING" | "ACTIVE" | "ERROR" | "DELETING" | "DELETED"
+type DomainQueryParams = QueryParams & {
+    name?: string
+    app_ids?: string
+    types: "AUTOASSIGNED" | "CUSTOM"
+    statuses?: DomainStatus
+}

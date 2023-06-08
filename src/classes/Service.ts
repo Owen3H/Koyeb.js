@@ -2,11 +2,12 @@ import * as fn from "../utils/fn.js"
 import { currentDeployment, Environment } from "./Environment.ts"
 
 import { APIResponse } from "../interfaces/common/helpers"
+import { Actions } from "../utils/enums.ts"
 
 export default class Service {
     #authToken: string
 
-    #serviceID: string | number
+    #serviceID: string
     #serviceURL: string
 
     #paused: boolean = false
@@ -14,18 +15,16 @@ export default class Service {
     Environment: Environment
     static Actions: Actions
     
-    constructor(id: string | number, token: string) {
+    constructor(id: string, token?: string) {
+        this.#authToken = fn.checkValidToken(token)
         if (!id) throw new Error(`Invalid id parameter '${id}'`)
-        if (!token) throw new Error(`Invalid token parameter '${token}'`)
 
         this.#serviceID = id
-        this.#authToken = token
-
-        this.#serviceURL = `${fn.domain}/services/${this.#serviceID}`
-        this.Environment = new Environment(this.#authToken, this.#serviceID, this.#serviceURL)
+        this.#serviceURL = `${fn.domain}/services/${id}`
+        this.Environment = new Environment(id, this.#authToken)
     }
 
-    async info() : Promise<IService | null> {
+    async info(): Promise<IService | null> {
         const endpoint = `/services/${this.#serviceID}`,
               res = await fn.jsonRequest(endpoint, this.#authToken)
 
@@ -42,18 +41,21 @@ export default class Service {
         return `Status of app '${name}':\n ${status}`
     }
 
-    currentDeployment = () => currentDeployment(this.#serviceID)
+    currentDeployment = () => currentDeployment(this.#serviceID, this.#authToken)
 
     paused = async () => this.#paused || (await this.status()).includes('PAUSED') 
-    async pause(): Promise<false | void> {
-        if (this.#paused) return false
+    async pause(): Promise<boolean> {
+        if (this.paused()) return false // Already paused
 
+        // No already paused, go ahead and pause.
         this.#paused = true
         await this.#runAction(Actions.PAUSE)
     }    
 
     async delete() {
-        const res = await fn.sendRequest(`${this.#serviceURL}`, fn.options(this.#authToken, 'DELETE')) as APIResponse
+        const res = await fn.sendRequest(`${this.#serviceURL}`, 
+            fn.options(this.#authToken, 'DELETE')) as APIResponse
+
         return res?.statusCode == 200
     }
 
@@ -61,7 +63,8 @@ export default class Service {
     redeploy = () => this.#runAction(Actions.REDEPLOY)
 
     #runAction = async (action: Actions | ActionType) => {
-        let res = await fn.sendRequest(`${this.#serviceURL}/${action}`, fn.options(this.#authToken, 'POST')) as APIResponse
+        let res = await fn.sendRequest(`${this.#serviceURL}/${action}`, 
+            fn.options(this.#authToken, 'POST')) as APIResponse
 
         this.#paused = action == 'pause' ? true : false
         return res?.statusCode == 200

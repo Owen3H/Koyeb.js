@@ -40,16 +40,12 @@ type QueryParams = {
     offset?: number
 }
 
-type DefaultReqHeaders = {
-    "Content-Type": string | HttpMethod,
-    "Authorization": string
-}
-
 type HttpMethod = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH';
 type IncomingHttpHeaders = Record<string, string | string[] | undefined>;
 
 type ReqOptions = {
-    method?: HttpMethod
+    path: string
+    method: HttpMethod
     body?: string | Buffer | Uint8Array | Readable | null | FormData,
     headers?: string[] | IncomingHttpHeaders
 }

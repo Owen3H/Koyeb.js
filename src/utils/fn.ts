@@ -1,7 +1,8 @@
 import { Readable } from 'stream'
 import { request, Dispatcher } from 'undici'
+import { AuthError } from './errors'
 
-//#region Global token auth
+//#region Token Authentication
 let globalToken: string
 
 const getToken = () => globalToken || null
@@ -11,6 +12,15 @@ const setToken = (token: string) => new Promise((resolve, reject) => {
     globalToken = token
     resolve(token)
 }).catch(e => { throw new Error(e) })
+
+const checkValidToken = (token: string) => {
+    if (!token) {
+        token = getToken()
+        if (!token) throw new AuthError(AuthError.MISSING_TOKEN)
+    }
+
+    return token
+}
 //#endregion
 
 //#region Simple helper vars
@@ -22,28 +32,37 @@ const domain = 'https://app.koyeb.com/v1'
 const options = (
     authToken: string, 
     reqMethod: HttpMethod = 'GET', 
-    body?: string | Buffer | Uint8Array | Readable | null | FormData
+    body?: string | Buffer | Uint8Array | Readable | null | FormData,
+    path?: string
 ) => ({
-    body,
+    body, path,
     method: reqMethod,
     headers: {
         "Content-Type": "application/json; charset=UTF-8",
         "Authorization": `Bearer ${globalToken ?? authToken}`
     }
-})
+} as ReqOptions)
 //#endregion
 
 //#region URL/Request Helper Methods
 const sendRequest = async (url: string | URL, opts?: ReqOptions) => {
     try { return await opts ? request(url, opts) : request(url) }
-    catch (e) { console.error(e) }
+    catch(e) { console.error(e) }
 }
 
-const textRequest = (url: string | URL, opts: Dispatcher.DispatchOptions) => sendRequest(url, opts)
-    .then(res => res.body.text()).catch(err => console.error(err))
+async function textRequest(url: string | URL, opts: Dispatcher.DispatchOptions) {
+    try { var res = await sendRequest(url, opts) }
+    catch(e) { console.error(e) }
 
-const jsonRequest = (endpoint: string, token: string, method: HttpMethod = 'GET') => sendRequest(domain + endpoint, options(token, method))
-    .then(res => res.body.json()).catch(err => console.error(err))
+    return res?.body.text()
+}
+
+async function jsonRequest(endpoint: string, token: string, method: HttpMethod = 'GET') {
+    try { var res = await sendRequest(domain + endpoint, options(token, method)) }
+    catch(e) { console.error(e) }
+
+    return res?.body.json()
+}
 
 const buildURL = (url: string | URL, params: {} | string | URLSearchParams | Record<string, string>) => {
     url = new URL(url)
@@ -58,5 +77,5 @@ export {
     domain, options, 
     buildURL, sendRequest, textRequest, jsonRequest, 
     isBase64, decode, encode,
-    setToken, getToken
+    setToken, getToken, checkValidToken 
 }

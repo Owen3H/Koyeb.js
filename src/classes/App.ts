@@ -1,33 +1,36 @@
-import { jsonRequest, getToken } from "../utils/fn.js"
-import { default as Service } from "./Service.js"
+import * as fn from "../utils/fn.ts"
+import { default as Service } from "./Service.ts"
 
 export default class App {
     #appID: string
     #authToken: string
 
-    constructor(token=getToken()) {
-        if (!token) throw new Error('Invalid token or no global token set.')
-        this.#authToken = token
+    constructor(token?: string) {
+        this.#authToken = fn.checkValidToken(token)
     }
 
-    static list = (token: string) => jsonRequest('/apps', token ?? getToken())
-        .then(res => res.apps).catch(e => console.log(e))
+    static list = async (token?: string) => {
+        fn.checkValidToken(token)
+
+        return await fn.jsonRequest('/apps', token)
+            .then(res => res.apps).catch(e => console.log(e))
+    }
 
     fromID = (id: string) => {
-        if (!id) throw new Error("Parameter 'appID' is required!")
+        if (!id) throw new Error('Parameter `id` is invalid! Make sure to pass your App ID as a string.')
         this.#appID = id
 
         return this
     }
 
     fromName = async (name: string) => {
-        if (!name) throw new Error("Parameter 'name' is required!")
+        if (!name) throw new Error('Parameter `name` is required!')
         
         const apps = await App.list(this.#authToken)
-        if (!apps) throw new Error(`Unable to fetch app list!'`)
+        if (!apps) throw new Error('Unable to fetch app list!')
 
         const app = await apps.find((app: any) => app.name === name.trim())[0]
-        if (!app) throw new Error(`Could not find app with name '${name}'`)
+        if (!app) throw new Error(`Could not find app with name \`${name}\``)
 
         this.#appID = app.id
         return this
@@ -46,7 +49,7 @@ export default class App {
     }
 
     info = async () => {
-        let res = await jsonRequest('/apps/' + this.#appID, this.#authToken)
+        let res = await fn.jsonRequest(`/apps/${this.#appID}`, this.#authToken)
         if (!res) return
 
         return res.app
@@ -54,7 +57,7 @@ export default class App {
 
     Services = {
         all: async () => {
-            let res = await jsonRequest('/services', this.#authToken)
+            let res = await fn.jsonRequest('/services', this.#authToken)
             if (!res) return
     
             return res.services.filter((service: any) => service.app_id == this.#appID)

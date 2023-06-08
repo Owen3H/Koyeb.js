@@ -1,5 +1,5 @@
-import * as fn from '../utils/fn.js'
-import { Console, exec } from '../utils/Console.js'
+import * as fn from '../utils/fn.ts'
+import { Console, exec } from './Console.ts'
 
 export default class Instance {
     #instanceID: string
@@ -7,12 +7,11 @@ export default class Instance {
 
     static #consoleWs: Console
     
-    constructor(id: string, token=fn.getToken()) {
+    constructor(id: string, token?: string) {
         if (!id) throw new Error(`Invalid id parameter '${id}'`)
-        if (!token) throw new Error(`Invalid token parameter '${token}'`)
 
         this.#instanceID = id
-        this.#authToken = token
+        this.#authToken = fn.checkValidToken(token)
 
         Instance.#initConsoleWs(token)
     }
