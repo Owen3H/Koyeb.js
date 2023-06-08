@@ -22,9 +22,12 @@ type ValidationError = BaseError & {
     fields: ErrorField[]
 }
 
-type EventDateTimes = {
+type BaseEventDateTimes = {
     created_at: string
     updated_at: string
+}
+
+type EventDateTimes = BaseEventDateTimes & {
     started_at: string
     succeeded_at: string
     paused_at: string
@@ -35,6 +38,20 @@ type EventDateTimes = {
 type QueryParams = {
     limit?: number
     offset?: number
+}
+
+type DefaultReqHeaders = {
+    "Content-Type": string | HttpMethod,
+    "Authorization": string
+}
+
+type HttpMethod = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH';
+type IncomingHttpHeaders = Record<string, string | string[] | undefined>;
+
+type ReqOptions = {
+    method?: HttpMethod
+    body?: string | Buffer | Uint8Array | Readable | null | FormData,
+    headers?: string[] | IncomingHttpHeaders
 }
 
 type ResponseListItem = QueryParams & {

@@ -18,19 +18,10 @@ const isBase64 = (str: string = '') => encode(decode(str)) == str
 const decode = (str: string) => Buffer.from(str, 'base64')
 const encode = (buffer: Buffer) => buffer.toString('base64')
 
-// interface ReqOptions {
-//     method?: string
-//     body?: string | Buffer | Uint8Array | Readable | null | FormData,
-//     headers?: {
-//         "Content-Type": string,
-//         "Authorization": string
-//     }
-// }
-
 const domain = 'https://app.koyeb.com/v1'
 const options = (
     authToken: string, 
-    reqMethod: string = 'GET', 
+    reqMethod: HttpMethod = 'GET', 
     body?: string | Buffer | Uint8Array | Readable | null | FormData
 ) => ({
     body,
@@ -43,7 +34,7 @@ const options = (
 //#endregion
 
 //#region URL/Request Helper Methods
-const sendRequest = async (url: string | URL, opts?: any): Promise<Dispatcher.ResponseData> => {
+const sendRequest = async (url: string | URL, opts?: ReqOptions) => {
     try { return await opts ? request(url, opts) : request(url) }
     catch (e) { console.error(e) }
 }
@@ -51,7 +42,7 @@ const sendRequest = async (url: string | URL, opts?: any): Promise<Dispatcher.Re
 const textRequest = (url: string | URL, opts: Dispatcher.DispatchOptions) => sendRequest(url, opts)
     .then(res => res.body.text()).catch(err => console.error(err))
 
-const jsonRequest = (endpoint: string, token: string, method: string = 'GET') => sendRequest(domain + endpoint, options(token, method))
+const jsonRequest = (endpoint: string, token: string, method: HttpMethod = 'GET') => sendRequest(domain + endpoint, options(token, method))
     .then(res => res.body.json()).catch(err => console.error(err))
 
 const buildURL = (url: string | URL, params: {} | string | URLSearchParams | Record<string, string>) => {
