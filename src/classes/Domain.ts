@@ -15,8 +15,6 @@ export default class Domain {
     }
 
     static async #req(id: string, token: string, method: HttpMethod, body?: ReqBody) {
-        fn.checkValidToken(token)
-        
         let endpoint = `/domains/${id}`
         if (!body && method === 'POST') 
             endpoint += `/refresh`

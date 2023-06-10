@@ -7,6 +7,12 @@ type KeyValue = {
     value: string
 }
 
+type Identity = {
+    id: string
+    organization_id: string
+    name: string
+}
+
 type BaseError = {
     status: number
     code: string

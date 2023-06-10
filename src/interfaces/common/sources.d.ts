@@ -33,11 +33,15 @@ type GitBaseMetadata = {
     sha: string
 }
 
+type Provider = "UNKNOWN" | "GITHUB"
+type TriggerType = "UNKNOWN_TYPE" | "GIT" | "RESUME"
+type Actor = "UNKNOWN_ACTOR" | "USER" | "SYSTEM"
+
 type GitTrigger = {
-    type: "UNKNOWN_TYPE" | "GIT" | "RESUME"
-    actor: "UNKNOWN_ACTOR" | "USER" | "SYSTEM"
+    type: TriggerType
+    actor: Actor
     git: GitBaseMetadata & {
-        provider: "UNKNOWN" | "GITHUB"
+        provider: Provider
         message: string
         sender_username: string
         sender_avatar_url: string

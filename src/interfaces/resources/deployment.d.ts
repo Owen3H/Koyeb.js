@@ -19,9 +19,7 @@ type DeploymentStatusDates = {
     terminated_at: string
 }
 
-type DeploymentIds = {
-    id: string
-    organization_id: string
+type DeploymentIds = Omit<Identity, "name"> & {
     app_id: string
     service_id: string
     parent_id: string

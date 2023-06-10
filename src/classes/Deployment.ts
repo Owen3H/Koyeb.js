@@ -3,6 +3,8 @@ import * as fn from '../utils/fn.js'
 export default class Deployment {
     #deploymentID: string
     #authToken: string
+
+    static CANCELLABLE = ["PENDING", "PROVISIONING", "SCHEDULED"]
     
     constructor(id: string, token?: string) {
         if (!id) throw new Error(`Invalid id parameter '${id}'`)
@@ -10,12 +12,31 @@ export default class Deployment {
     }
 
     get = () => Deployment.get(this.#deploymentID, this.#authToken)
-    static async get (id: string, token: string) {
-        fn.checkValidToken(token)
-
+    static async get(id: string, token: string): Promise<IDeployment | null> {
         const endpoint = `/deployments/${id}`,
               res = await fn.jsonRequest(endpoint, token)
 
-        return res?.deployment ?? console.error(`Request to ${endpoint} failed! Response:\n${res}`)
+        if (!res) {
+            console.error(`Request to ${endpoint} failed! Response:\n${res}`)
+            return null
+        }
+
+        return res.deployment
+    }
+
+    static async cancel(deployment: IDeployment, token: string) {
+        if (!this.CANCELLABLE.includes(deployment.status)) {
+            console.error(`
+                Unable to cancel deployment: ${deployment.id}\n
+                Status must be "PENDING", "PROVISIONING" or "SCHEDULED".
+            `)
+
+            return false
+        }
+
+        const endpoint = `/deployments/${deployment.id}/cancel`
+        const res = await fn.sendRequest(endpoint, fn.options(token, 'POST'))
+
+        return res?.statusCode === 200
     }
 }

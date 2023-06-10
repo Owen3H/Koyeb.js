@@ -2,11 +2,8 @@ type IApp = AppBaseMetadata & {
     domains: IDomain[]
 }
 
-type AppBaseMetadata = {
-    name: string
-    id: string
+type AppBaseMetadata = Identity & {
     app_id: string
-    organization_id: string
     status: "STARTING" | "HEALTHY" | "UNHEALTHY" | "DEGRADED" | 
             "DELETING" | "DELETED" | "PAUSING" | "PAUSED" | "RESUMING"
     messages: string[]
