@@ -10,7 +10,7 @@ export default class Deployment {
     }
 
     get = () => Deployment.get(this.#deploymentID, this.#authToken)
-    static async get (id: string, token?: string) {
+    static async get (id: string, token: string) {
         fn.checkValidToken(token)
 
         const endpoint = `/deployments/${id}`,

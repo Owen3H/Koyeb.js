@@ -9,7 +9,7 @@ export default class App {
         this.#authToken = fn.checkValidToken(token)
     }
 
-    static list = async (token?: string) => {
+    static list = async (token: string) => {
         fn.checkValidToken(token)
 
         return await fn.jsonRequest('/apps', token)

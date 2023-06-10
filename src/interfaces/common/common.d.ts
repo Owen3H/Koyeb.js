@@ -13,6 +13,10 @@ type BaseError = {
     message: string
 }
 
+type UnexpectedError = Omit<BaseError, "status"> & {
+    details: IAny[]
+}
+
 type ErrorField = {
     field: string
     description: string
@@ -43,10 +47,11 @@ type QueryParams = {
 type HttpMethod = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH';
 type IncomingHttpHeaders = Record<string, string | string[] | undefined>;
 
+type ReqBody = string | Buffer | Uint8Array | Readable | null | FormData
 type ReqOptions = {
     path: string
     method: HttpMethod
-    body?: string | Buffer | Uint8Array | Readable | null | FormData,
+    body?: ReqBody,
     headers?: string[] | IncomingHttpHeaders
 }
 
@@ -66,9 +71,7 @@ type ProtobufAny = {
 
 type LogsReponse = {
     result: LogEntry
-    error: Omit<BaseError, "status"> & {
-        details: IAny[]
-    }
+    error: UnexpectedError
 }
 
 type LogEntry = {

@@ -35,8 +35,8 @@ export default class Instance {
         return res?.instance ?? console.error(`Failed to get instance: ${id}\nResponse:\n${res}`)
     }
 
-    executeCommand = (body: WsCommandBody) => Instance.executeCommand(this.#instanceID, body)
-    static executeCommand = (id: string, body: WsCommandBody, token?: string) => {
+    executeCommand = (body: WsCommandBody) => Instance.executeCommand(this.#instanceID, body, this.#authToken)
+    static executeCommand = (id: string, body: WsCommandBody, token: string) => {
         let { command, data, ttyHeight, ttyWidth } = body
 
         if (!command) throw new Error(`Cannot execute invalid command on instance: ${id}`)
