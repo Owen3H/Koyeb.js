@@ -1,11 +1,15 @@
-## <img align="left" width="132" height="34.3" src="https://downloads.intercomcdn.com/i/o/259496/2f1b0c68697b5cd2dc9e81c7/ce1a70662d1063913f39915281fa9628.png">.js
+<div align="left">
+  <a href="https://koyeb.com/docs/api">
+    <img align="left" src="https://www.koyeb.com/static/images/icons/koyeb.svg" alt="Logo" width="80" height="80">
+  </a>
+  <h2 align="left">Koyeb.js</h2>
+  
+  [![Github Repo Size](https://img.shields.io/github/repo-size/Owen3H/Koyeb.js?label=Repository%20Size&logo=Github)](https://github.com/Owen3H/Koyeb.js) 
+  [![Codacy Badge](https://app.codacy.com/project/badge/Grade/77a5d15fa73d426c8210e8606a357e73)](https://app.codacy.com/gh/Owen3H/Koyeb.js/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+</div>
 
-[![Commit Activity](https://img.shields.io/github/commit-activity/m/Owen3H/Koyeb.js?color=yellow&label=Commit%20Activity&logo=git&logoColor=white)](https://github.com/Owen3H/Koyeb.js) [![Github Repo Size](https://img.shields.io/github/repo-size/Owen3H/Koyeb.js?label=Repository%20Size&logo=Github)](https://github.com/Owen3H/Koyeb.js)
-
-[![Package Quality](https://packagequality.com/badge/koyeb.js.png)](https://packagequality.com/#?package=koyeb.js)
-
-An unofficial wrapper for the Koyeb REST API, enabling you to interact with apps, services and more.<br> Designed to have a simple, intuitive syntax using asynchronous functions.<br>
-
+An *unofficial* wrapper for the [Koyeb REST API](https://koyeb.com/docs/api), enabling you to interact with apps, services and more.<br> Designed to have a simple, intuitive syntax using asynchronous functions.<br>
+  
 > This package depends on [Undici](https://npmjs.com/package/undici), a modern HTTP client with a very fast request implementation.
 
 ## Features
