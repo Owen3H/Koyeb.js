@@ -8,8 +8,8 @@
   "scripts": {
     "test": "cd test-pkg & npm test",
     "build": "rmdir dist /S /Q && npm run build:esm && npm run build:cjs",
-    "build:esm": "tsc --outDir dist/esm && npm run dets:esm",
-    "build:cjs": "tsc --module CommonJS --outDir dist/cjs && npm run dets:cjs"
+    "build:esm": "tsc --outDir dist/esm",
+    "build:cjs": "tsc --module CommonJS --outDir dist/cjs"
   },
   "files": [
     "dist"
