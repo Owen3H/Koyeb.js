@@ -28,7 +28,7 @@ export default class Domain {
             return obj?.domain
         }
 
-        return res?.statusCode === 200
+        return res?.statusCode === fn.STATUS_CODES.OK
     }
 
     // static list = () => d

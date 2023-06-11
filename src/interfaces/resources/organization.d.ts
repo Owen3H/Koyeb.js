@@ -1,8 +1,8 @@
 declare namespace Organization {
-    export type Status = "WARNING" | "LOCKED" | "ACTIVE" | "DEACTIVATING" | 
+    declare type Status = "WARNING" | "LOCKED" | "ACTIVE" | "DEACTIVATING" | 
                          "DEACTIVATED" | "DELETING" | "DELETED"
 
-    export type Member = {
+    declare type Member = {
         id: string
         organization_id: string
         user_id: string
@@ -13,7 +13,7 @@ declare namespace Organization {
         organization: PublicOrganization
     }
 
-    export type Members = ResponseListItem & {
+    declare type Members = ResponseListItem & {
         members: Member[]
     }
 }

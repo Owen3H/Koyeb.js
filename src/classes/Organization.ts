@@ -16,6 +16,6 @@ export default class Organization {
         const endpoint = `/git/sync/organization/${id}`
         const res = await fn.sendRequest(endpoint, fn.options(token, 'POST'))
 
-        return res?.statusCode === 200
+        return res?.statusCode === fn.STATUS_CODES.OK
     }
 }

@@ -13,8 +13,8 @@ class Environment {
     #vars: DeploymentEnv[]
     
     constructor(id: string, token?: string) {
+        if (!id) throw new Error('Invalid parameter `id`. Must be a string!')
         this.#authToken = fn.checkValidToken(token)
-        if (!id) throw new Error(`Invalid id parameter '${id}'`)
 
         this.#serviceID = id
         this.#serviceURL = `${fn.domain}/services/${id}`
@@ -35,16 +35,16 @@ class Environment {
     }
 
     deleteVariable = async (key: string) => {
-        let arr = await this.#filterVars(key),
-            index = this.#vars.indexOf(arr[0])
+        const arr = await this.#filterVars(key),
+              index = this.#vars.indexOf(arr[0])
 
         delete this.#vars[index]
         await this.#sendUpdate()
     }
 
     setVariable = async (key: string, value: string) => {
-        let arr = await this.#filterVars(key),
-            index = this.#vars.indexOf(arr[0])
+        const arr = await this.#filterVars(key),
+              index = this.#vars.indexOf(arr[0])
 
         // Add or update key
         if (arr.length) this.#vars[index]['value'] = value

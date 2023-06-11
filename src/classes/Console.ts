@@ -14,7 +14,7 @@ class Console extends WebSocket {
 }
 
 const exec = (ws: Console, msg: WsMessage) => new Promise((resolve, reject) => {
-    let sent = ws.sendJSON(msg)
+    const sent = ws.sendJSON(msg)
     if (!sent) reject(sent)
     
     ws.on('message', (e: any) => {

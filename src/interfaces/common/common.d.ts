@@ -67,7 +67,7 @@ type ResponseListItem = QueryParams & {
 
 type IAny = {
     "@type": string
-    [key: string]: any
+    [key: string]: null | undefined | string | boolean | number | {} | []
 }
 
 type ProtobufAny = {

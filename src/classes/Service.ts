@@ -37,7 +37,7 @@ export default class Service {
     }
     
     status = async () => {
-        let { name, status } = await this.info()
+        const { name, status } = await this.info()
         return `Status of app '${name}':\n ${status}`
     }
 
@@ -56,17 +56,17 @@ export default class Service {
         const res = await fn.sendRequest(`${this.#serviceURL}`, 
             fn.options(this.#authToken, 'DELETE')) as APIResponse
 
-        return res?.statusCode == 200
+        return res?.statusCode == fn.STATUS_CODES.OK
     }
 
     resume = () => this.#paused ? false : this.#runAction(Actions.RESUME)
     redeploy = () => this.#runAction(Actions.REDEPLOY)
 
     #runAction = async (action: Actions | ActionType) => {
-        let res = await fn.sendRequest(`${this.#serviceURL}/${action}`, 
-            fn.options(this.#authToken, 'POST')) as APIResponse
+        const res = await fn.sendRequest(`${this.#serviceURL}/${action}`, 
+              fn.options(this.#authToken, 'POST')) as APIResponse
 
         this.#paused = action == 'pause' ? true : false
-        return res?.statusCode == 200
+        return res?.statusCode == fn.STATUS_CODES.OK
     }
 }

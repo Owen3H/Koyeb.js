@@ -18,12 +18,12 @@ export default class Metrics {
     all = (id: string, includeLabels: boolean = true) => Metrics.all(id, this.#authToken, includeLabels)
     static async all(id: number | string, token: string, includeLabels: boolean = true) {
         const values = Object.values(MetricTypes)
-        let collection: MetricCollection = {}
+        const collection = {}
 
         for (const type of values) {
             let res = await Metrics.get({ 
-                name: type,
-                instance_id: id.toString()
+                instance_id: id.toString(),
+                name: type
             }, token)
 
             if (!res) continue
@@ -32,7 +32,7 @@ export default class Metrics {
             collection[type] = res
         }
 
-        return collection
+        return collection as MetricCollection
     }
 
     get = (metric: MetricType | MetricTypes) => Metrics.get({ 

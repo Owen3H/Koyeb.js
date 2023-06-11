@@ -28,6 +28,12 @@ const checkValidToken = (token: string) => {
 const isBase64 = (str: string = '') => encode(decode(str)) == str
 const decode = (str: string) => Buffer.from(str, 'base64')
 const encode = (buffer: Buffer) => buffer.toString('base64')
+const enum STATUS_CODES {
+    OK = 200,
+    VALIDATION_ERROR = 400,
+    NO_PERMISSION = 403,
+    EMPTY_RESOURCE = 404
+}
 
 const domain = 'https://app.koyeb.com/v1'
 const options = (
@@ -78,5 +84,6 @@ export {
     domain, options, 
     buildURL, sendRequest, textRequest, jsonRequest, 
     isBase64, decode, encode,
-    setToken, getToken, checkValidToken 
+    setToken, getToken, checkValidToken,
+    STATUS_CODES
 }
