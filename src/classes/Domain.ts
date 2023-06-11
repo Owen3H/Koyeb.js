@@ -22,23 +22,25 @@ export default class Domain {
         if (!body && method === 'POST') 
             endpoint += `/refresh`
 
-        let res = await fn.sendRequest(endpoint, opts)
+        const res = await fn.sendRequest(endpoint, opts)
         if (body) {
-            let obj = await res?.body.json()
+            const obj = await res?.body.json()
             return obj?.domain
         }
 
         return res?.statusCode === 200
     }
 
-    static get = (id: string, token?: string) => 
-        Domain.#req({ id, token, method: 'GET' })
+    // static list = () => d
+
+    static get = async (id: string, token?: string) => 
+        await Domain.#req({ id, token, method: 'GET' }) as IDomain
 
     refresh = () => Domain.create(this.#domainID, this.#authToken)
-    static refresh = (id: string, token?: string) => 
-        Domain.#req({ id, token, method: 'POST' })
+    static refresh = async (id: string, token?: string) => 
+        await Domain.#req({ id, token, method: 'POST' }) as boolean
 
-    delete = (id: string) => Domain.delete(this.#domainID, this.#authToken)
-    static delete = (id: string, token?: string) => 
-        Domain.#req({ id, token, method: 'DELETE' })
+    delete = () => Domain.delete(this.#domainID, this.#authToken)
+    static delete = async (id: string, token?: string) => 
+        await Domain.#req({ id, token, method: 'DELETE' }) as boolean
 }

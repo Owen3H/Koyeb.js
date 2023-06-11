@@ -14,12 +14,13 @@ const setToken = (token: string) => new Promise((resolve, reject) => {
 }).catch(console.error)
 
 const checkValidToken = (token: string) => {
+    var validToken: string
     if (!token) {
-        token = getToken()
-        if (!token) throw new AuthError(AuthError.MISSING_TOKEN)
+        validToken = getToken()
+        if (!validToken) throw new AuthError(AuthError.MISSING_TOKEN)
     }
 
-    return token
+    return validToken
 }
 //#endregion
 
@@ -38,8 +39,8 @@ const options = (
     body, path,
     method: reqMethod,
     headers: {
-        "Content-Type": "application/json; charset=UTF-8",
-        "Authorization": `Bearer ${checkValidToken(authToken)}`
+        "Authorization": `Bearer ${checkValidToken(authToken)}`,
+        "Content-Type": "application/json; charset=UTF-8"
     }
 } as ReqOptions)
 //#endregion
@@ -54,8 +55,8 @@ async function textRequest(url: string | URL, opts: Dispatcher.DispatchOptions) 
     try { var res = await sendRequest(url, opts) }
     catch(e) { console.error(e) }
 
-    return res?.body.text()
-}
+    return res?.body.text() as Promise<string>
+} 
 
 async function jsonRequest(endpoint: string, token?: string, method: HttpMethod = 'GET') {
     try { var res = await sendRequest(domain + endpoint, options(token, method)) }

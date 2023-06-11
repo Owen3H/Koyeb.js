@@ -17,16 +17,19 @@ export default class Instance {
     }
 
     static #initConsoleWs = (token: string) => {
-        token = fn.checkValidToken(token)
-
+        const validToken = fn.checkValidToken(token)
         const url = 'wss://app.koyeb.com/v1/streams/instances/exec'
-        this.#consoleWs = new Console(url, token).on('error', () => this.#consoleWs.close())
+        
+        this.#consoleWs = new Console(url, validToken)
+            .on('error', () => this.#consoleWs.close())
     }
 
     latest = () => Instance.latest(this.#authToken)
     static async latest(token?: string) {
         const res = await fn.jsonRequest('/instances?limit=1', token)
-        return res?.instances ? res.instances[0] : console.error(`Failed to get latest instance!\nResponse:\n${res}`)
+        
+        return res?.instances ? res.instances[0] : 
+            console.error(`Failed to get latest instance!\nResponse:\n${res}`)
     }
 
     get = () => Instance.get(this.#instanceID, this.#authToken)
