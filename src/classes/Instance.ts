@@ -1,5 +1,5 @@
-import * as fn from '../utils/fn.ts'
-import { Console, exec } from './Console.ts'
+import * as fn from '../utils/fn'
+import { Console, exec } from './Console'
 
 export default class Instance {
     #instanceID: string

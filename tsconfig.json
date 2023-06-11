@@ -15,12 +15,11 @@
         ],
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
-        "noEmit": true,
-        "allowImportingTsExtensions": true,
         "importHelpers": true,
         "experimentalDecorators": true,
         "skipDefaultLibCheck": true,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "declaration": true
     },
-    "exclude": ["test-pkg", "node_modules", "src/decorators"]
+    "include": ["src"]
 }

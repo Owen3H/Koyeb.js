@@ -2,17 +2,18 @@
   "name": "koyeb.js",
   "version": "4.0.0",
   "description": "An unofficial wrapper for interacting with the Koyeb API.",
-  "main": "./src/koyeb.cjs",
-  "module": "./src/koyeb.mjs",
+  "main": "dist/cjs/koyeb.js",
+  "module": "dist/esm/koyeb.js",
   "type": "module",
-  "exports": {
-    "require": "./src/koyeb.cjs",
-    "import": "./src/koyeb.mjs"
-  },
   "scripts": {
     "test": "cd test-pkg & npm test",
-    "build": "tsc --noEmit false"
+    "build": "rmdir dist /S /Q && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc --outDir dist/esm && npm run dets:esm",
+    "build:cjs": "tsc --module CommonJS --outDir dist/cjs && npm run dets:cjs"
   },
+  "files": [
+    "dist"
+  ],
   "funding": "https://github.com/sponsors/Owen3H",
   "repository": {
     "type": "git",

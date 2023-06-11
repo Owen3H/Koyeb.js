@@ -1,5 +1,5 @@
-import * as fn from "../utils/fn.ts"
-import { default as Service } from "./Service.ts"
+import * as fn from "../utils/fn"
+import { default as Service } from "./Service"
 
 export default class App {
     #appID: string
