@@ -11,7 +11,7 @@ const setToken = (token: string) => new Promise((resolve, reject) => {
 
     globalToken = token
     resolve(token)
-}).catch(e => { throw new Error(e) })
+}).catch(console.error)
 
 const checkValidToken = (token: string) => {
     if (!token) {
@@ -39,7 +39,7 @@ const options = (
     method: reqMethod,
     headers: {
         "Content-Type": "application/json; charset=UTF-8",
-        "Authorization": `Bearer ${globalToken ?? authToken}`
+        "Authorization": `Bearer ${checkValidToken(authToken)}`
     }
 } as ReqOptions)
 //#endregion
@@ -57,7 +57,7 @@ async function textRequest(url: string | URL, opts: Dispatcher.DispatchOptions) 
     return res?.body.text()
 }
 
-async function jsonRequest(endpoint: string, token: string, method: HttpMethod = 'GET') {
+async function jsonRequest(endpoint: string, token?: string, method: HttpMethod = 'GET') {
     try { var res = await sendRequest(domain + endpoint, options(token, method)) }
     catch(e) { console.error(e) }
 

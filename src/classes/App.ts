@@ -9,8 +9,8 @@ export default class App {
         this.#authToken = fn.checkValidToken(token)
     }
 
-    static list = async (token: string) => await fn.jsonRequest('/apps', token)
-            .then(res => res.apps).catch(e => console.log(e))
+    static list = async (token?: string) => await fn.jsonRequest('/apps', token)
+            .then(res => res.apps).catch(console.error)
 
     fromID = (id: string) => {
         if (!id) throw new Error('Parameter `id` is invalid! Make sure to pass your App ID as a string.')

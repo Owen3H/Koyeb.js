@@ -16,8 +16,8 @@ export default class Service {
     static Actions: Actions
     
     constructor(id: string, token?: string) {
-        this.#authToken = fn.checkValidToken(token)
         if (!id) throw new Error(`Invalid id parameter '${id}'`)
+        this.#authToken = fn.checkValidToken(token)
 
         this.#serviceID = id
         this.#serviceURL = `${fn.domain}/services/${id}`

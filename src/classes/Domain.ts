@@ -14,12 +14,15 @@ export default class Domain {
         this.#domainID = id
     }
 
-    static async #req(id: string, token: string, method: HttpMethod, body?: ReqBody) {
+    static async #req(params: DomainReqParams) {
+        const { id, method, token, body } = params
+        const opts = fn.options(token, method)
+
         let endpoint = fn.domain + `/domains/${id}`
         if (!body && method === 'POST') 
             endpoint += `/refresh`
 
-        let res = await fn.sendRequest(endpoint, fn.options(token, method))
+        let res = await fn.sendRequest(endpoint, opts)
         if (body) {
             let obj = await res?.body.json()
             return obj?.domain
@@ -28,11 +31,14 @@ export default class Domain {
         return res?.statusCode === 200
     }
 
-    static get = (id: string, token: string) => Domain.#req(id, token, 'GET')
+    static get = (id: string, token?: string) => 
+        Domain.#req({ id, token, method: 'GET' })
 
-    create = (id: string, token: string) => Domain.create(this.#domainID, this.#authToken)
-    static create = (id: string, token: string) => Domain.#req(id, token, 'POST')
+    refresh = () => Domain.create(this.#domainID, this.#authToken)
+    static refresh = (id: string, token?: string) => 
+        Domain.#req({ id, token, method: 'POST' })
 
-    delete = (id: string, token: string) => Domain.delete(this.#domainID, this.#authToken)
-    static delete = (id: string, token: string) => Domain.#req(id, token, 'DELETE')
+    delete = (id: string) => Domain.delete(this.#domainID, this.#authToken)
+    static delete = (id: string, token?: string) => 
+        Domain.#req({ id, token, method: 'DELETE' })
 }

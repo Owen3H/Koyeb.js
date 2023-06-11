@@ -12,7 +12,7 @@ export default class Organization {
     }
 
     resync = () => Organization.resync(this.#id, this.#authToken)
-    static async resync(id: string, token: string) {
+    static async resync(id: string, token?: string) {
         const endpoint = `/git/sync/organization/${id}`
         const res = await fn.sendRequest(endpoint, fn.options(token, 'POST'))
 

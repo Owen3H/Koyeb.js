@@ -12,7 +12,7 @@ export default class Deployment {
     }
 
     get = () => Deployment.get(this.#deploymentID, this.#authToken)
-    static async get(id: string, token: string): Promise<IDeployment | null> {
+    static async get(id: string, token?: string): Promise<IDeployment | null> {
         const endpoint = `/deployments/${id}`,
               res = await fn.jsonRequest(endpoint, token)
 
@@ -24,7 +24,7 @@ export default class Deployment {
         return res.deployment
     }
 
-    static async cancel(deployment: IDeployment, token: string) {
+    static async cancel(deployment: IDeployment, token?: string) {
         if (!this.CANCELLABLE.includes(deployment.status)) {
             console.error(`
                 Unable to cancel deployment: ${deployment.id}\n

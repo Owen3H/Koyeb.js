@@ -15,7 +15,7 @@ export default class Metrics {
         this.#authToken = fn.checkValidToken(token)
     }
 
-    all = (id: string, includeLabels: boolean = true) => Metrics.all(id, includeLabels, this.#authToken)
+    all = (id: string, includeLabels: boolean = true) => Metrics.all(id, this.#authToken, includeLabels)
     static async all(id: number | string, token: string, includeLabels: boolean = true) {
         const values = Object.values(MetricTypes)
         let collection: MetricCollection = {}

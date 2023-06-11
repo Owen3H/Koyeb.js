@@ -17,26 +17,26 @@ export default class Instance {
     }
 
     static #initConsoleWs = (token: string) => {
+        token = fn.checkValidToken(token)
+
         const url = 'wss://app.koyeb.com/v1/streams/instances/exec'
-        Instance.#consoleWs = new Console(url, token).on('error', () => {
-            Instance.#consoleWs.close()
-        })
+        this.#consoleWs = new Console(url, token).on('error', () => this.#consoleWs.close())
     }
 
     latest = () => Instance.latest(this.#authToken)
-    static async latest(token: string) {
+    static async latest(token?: string) {
         const res = await fn.jsonRequest('/instances?limit=1', token)
         return res?.instances ? res.instances[0] : console.error(`Failed to get latest instance!\nResponse:\n${res}`)
     }
 
     get = () => Instance.get(this.#instanceID, this.#authToken)
-    static async get(id: string, token: string) {
+    static async get(id: string, token?: string) {
         const res = await fn.jsonRequest(`/instances/${id}`, token)
         return res?.instance ?? console.error(`Failed to get instance: ${id}\nResponse:\n${res}`)
     }
 
     executeCommand = (body: WsCommandBody) => Instance.executeCommand(this.#instanceID, body, this.#authToken)
-    static executeCommand = (id: string, body: WsCommandBody, token: string) => {
+    static executeCommand = (id: string, body: WsCommandBody, token?: string) => {
         let { command, data, ttyHeight, ttyWidth } = body
 
         if (!command) throw new Error(`Cannot execute invalid command on instance: ${id}`)
@@ -61,7 +61,7 @@ export default class Instance {
         }
         
         if (!this.#consoleWs) {
-            Instance.#initConsoleWs(token)
+            this.#initConsoleWs(token)
             if (!this.#consoleWs) throw new Error('Cannot execute command! Console websocket has not been initialized.')
         }
 
