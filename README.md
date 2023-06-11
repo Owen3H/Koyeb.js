@@ -1,5 +1,6 @@
 ## <img align="left" width="132" height="34.3" src="https://downloads.intercomcdn.com/i/o/259496/2f1b0c68697b5cd2dc9e81c7/ce1a70662d1063913f39915281fa9628.png">.js
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/09134d6ea2fd4564893c82f708308fac)](https://app.codacy.com/gh/Owen3H/Koyeb.js?utm_source=github.com&utm_medium=referral&utm_content=Owen3H/Koyeb.js&utm_campaign=Badge_Grade)
 [![Commit Activity](https://img.shields.io/github/commit-activity/m/Owen3H/Koyeb.js?color=yellow&label=Commit%20Activity&logo=git&logoColor=white)](https://github.com/Owen3H/Koyeb.js) [![Github Repo Size](https://img.shields.io/github/repo-size/Owen3H/Koyeb.js?label=Repository%20Size&logo=Github)](https://github.com/Owen3H/Koyeb.js)
 
 [![Package Quality](https://packagequality.com/badge/koyeb.js.png)](https://packagequality.com/#?package=koyeb.js)
