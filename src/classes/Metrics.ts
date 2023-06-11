@@ -16,15 +16,15 @@ export default class Metrics {
     }
 
     all = (id: string, includeLabels: boolean = true) => Metrics.all(id, includeLabels, this.#authToken)
-    static async all(id: number | string, includeLabels: boolean = true, token: string) {
+    static async all(id: number | string, token: string, includeLabels: boolean = true) {
         const values = Object.values(MetricTypes)
         let collection: MetricCollection = {}
 
         for (const type of values) {
-            let res = await Metrics.get(token, { 
+            let res = await Metrics.get({ 
                 name: type,
                 instance_id: id.toString()
-            })
+            }, token)
 
             if (!res) continue
             if (!includeLabels) delete res[0].labels

@@ -34,7 +34,7 @@ export default class Deployment {
             return false
         }
 
-        const endpoint = `/deployments/${deployment.id}/cancel`
+        const endpoint = fn.domain + `/deployments/${deployment.id}/cancel`
         const res = await fn.sendRequest(endpoint, fn.options(token, 'POST'))
 
         return res?.statusCode === 200

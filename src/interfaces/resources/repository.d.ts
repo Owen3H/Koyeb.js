@@ -27,3 +27,5 @@ type RepositoryBranch = Identity & {
 type RepositoryBranches = ResponseListItem & {
     branches: RepositoryBranch[]
 }
+
+type RepositoryQuery = QueryParams & Omit<Identity, "organization_id">

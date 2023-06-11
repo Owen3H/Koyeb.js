@@ -15,7 +15,7 @@ export default class Domain {
     }
 
     static async #req(id: string, token: string, method: HttpMethod, body?: ReqBody) {
-        let endpoint = `/domains/${id}`
+        let endpoint = fn.domain + `/domains/${id}`
         if (!body && method === 'POST') 
             endpoint += `/refresh`
 
@@ -28,11 +28,11 @@ export default class Domain {
         return res?.statusCode === 200
     }
 
-    static async get = (id: string, token: string) => Domain.#send(id, token, 'GET')
+    static get = (id: string, token: string) => Domain.#req(id, token, 'GET')
 
-    async create = (id: string, token: string) => Domain.create(this.#domainID, this.#authToken)
-    static async create = (id: string, token: string) => Domain.#req(id, token, 'POST')
+    create = (id: string, token: string) => Domain.create(this.#domainID, this.#authToken)
+    static create = (id: string, token: string) => Domain.#req(id, token, 'POST')
 
-    async delete = (id: string, token: string) => Domain.delete(this.#domainID, this.#authToken)
-    static async delete = (id: string, token: string) => Domain.#req(id, token, 'DELETE')
+    delete = (id: string, token: string) => Domain.delete(this.#domainID, this.#authToken)
+    static delete = (id: string, token: string) => Domain.#req(id, token, 'DELETE')
 }
