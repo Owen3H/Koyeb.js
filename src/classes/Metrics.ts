@@ -15,13 +15,13 @@ export default class Metrics {
         this.#authToken = fn.checkValidToken(token)
     }
 
-    all = (id: string, includeLabels: boolean = true) => Metrics.all(id, this.#authToken, includeLabels)
-    static async all(id: number | string, token: string, includeLabels: boolean = true) {
+    all = (id: string, includeLabels = true) => Metrics.all(id, this.#authToken, includeLabels)
+    static async all(id: number | string, token: string, includeLabels = true) {
         const values = Object.values(MetricTypes)
         const collection = {}
 
         for (const type of values) {
-            let res = await Metrics.get({ 
+            const res = await Metrics.get({ 
                 instance_id: id.toString(),
                 name: type
             }, token)
@@ -44,8 +44,8 @@ export default class Metrics {
         if (!query.instance_id) throw new Error('Must specify `instance_id` to query Metrics.')
         if (!query.name) throw new Error('Must specify `name` to query the correct metric.')
 
-        let url = fn.buildURL(fn.domain + '/streams/metrics', query)
-        let res = await fn.sendRequest(url, fn.options(token)).then(res => (res as APIResponse).body.json())
+        const url = fn.buildURL(fn.domain + '/streams/metrics', query)
+        const res = await fn.sendRequest(url, fn.options(token)).then(res => (res as APIResponse).body.json())
         
         return res.metrics as MetricsResponse
     }

@@ -10,10 +10,10 @@ export default class App {
     }
 
     static list = async (token?: string) => await fn.jsonRequest('/apps', token)
-            .then(res => res.apps).catch(console.error)
+            .then(res => res.apps).catch(console.error) as IApp[]
 
     fromID = (id: string) => {
-        if (!id) throw new Error('Parameter `id` is invalid! Make sure to pass your App ID as a string.')
+        if (!id) throw new Error('Parameter `id` is invalid! App ID must be a string.')
         this.#appID = id
 
         return this
@@ -25,7 +25,7 @@ export default class App {
         const apps = await App.list(this.#authToken)
         if (!apps) throw new Error('Unable to fetch app list!')
 
-        const app = await apps.find((app: any) => app.name === name.trim())[0]
+        const app = await apps.find((app: IApp) => app.name === name.trim())
         if (!app) throw new Error(`Could not find app with name \`${name}\``)
 
         this.#appID = app.id
@@ -33,7 +33,7 @@ export default class App {
     }
 
     fromIndex = async (index: number) => {
-        if (!index && index != 0) throw new Error("Parameter 'index' is required!")
+        if (!index && index != 0) throw new Error("Parameter `index` is required!")
 
         const apps = await App.list(this.#authToken)
         const app = apps[index]
@@ -45,20 +45,20 @@ export default class App {
     }
 
     info = async () => {
-        let res = await fn.jsonRequest(`/apps/${this.#appID}`, this.#authToken)
+        const res = await fn.jsonRequest(`/apps/${this.#appID}`, this.#authToken)
         if (!res) return
 
-        return res.app
+        return res.app as IApp
     }
 
     Services = {
         all: async () => {
-            let res = await fn.jsonRequest('/services', this.#authToken)
+            const res = await fn.jsonRequest('/services', this.#authToken)
             if (!res) return
     
-            return res.services.filter((service: any) => service.app_id == this.#appID)
+            return (res.services as IService[]).filter(service => service.app_id == this.#appID)
         },
-        latest: async () => {
+        latest: async (): Promise<Service> => {
             const id = await this.Services.all().then(services => services[0].id)
             return new Service(id, this.#authToken)
         }

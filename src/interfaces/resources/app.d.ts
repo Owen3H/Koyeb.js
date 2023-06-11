@@ -1,4 +1,4 @@
-type IApp = AppBaseMetadata & {
+type IApp = AppBaseMetadata & EventDateTimes & {
     domains: IDomain[]
 }
 

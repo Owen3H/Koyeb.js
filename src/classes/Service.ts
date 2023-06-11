@@ -10,18 +10,18 @@ export default class Service {
     #serviceID: string
     #serviceURL: string
 
-    #paused: boolean = false
+    #paused = false
  
     Environment: Environment
     static Actions: Actions
     
-    constructor(id: string, token?: string) {
-        if (!id) throw new Error(`Invalid id parameter '${id}'`)
+    constructor(identifier: string | IService, token?: string) {
+        if (!identifier) throw new Error('Parameter `identifier` must be of type string or IService.')
         this.#authToken = fn.checkValidToken(token)
 
-        this.#serviceID = id
-        this.#serviceURL = `${fn.domain}/services/${id}`
-        this.Environment = new Environment(id, this.#authToken)
+        this.#serviceID = typeof identifier == 'string' ? identifier : identifier.id
+        this.#serviceURL = `${fn.domain}/services/${this.#serviceID}`
+        this.Environment = new Environment(this.#serviceID, this.#authToken)
     }
 
     async info(): Promise<IService | null> {
