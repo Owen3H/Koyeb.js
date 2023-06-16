@@ -1,10 +1,15 @@
 import * as fn from "../utils/fn.js"
-import { currentDeployment, Environment } from "./Environment"
 
-import { APIResponse } from "../interfaces/common/helpers"
-import { Actions } from "../utils/enums"
+import { 
+    IService, 
+    Action, 
+    APIResponse,
+    ACTIONS
+} from '../types.js'
 
-export default class Service {
+import { currentDeployment, Environment } from "./Environment.js"
+
+export class Service {
     #authToken: string
 
     #serviceID: string
@@ -13,7 +18,6 @@ export default class Service {
     #paused = false
  
     Environment: Environment
-    static Actions: Actions
     
     constructor(identifier: string | IService, token?: string) {
         if (!identifier) throw new Error('Parameter `identifier` must be of type string or IService.')
@@ -47,9 +51,9 @@ export default class Service {
     async pause(): Promise<boolean> {
         if (this.paused()) return false // Already paused
 
-        // No already paused, go ahead and pause.
+        // Not already paused, go ahead and pause.
         this.#paused = true
-        await this.#runAction(Actions.PAUSE)
+        await this.#runAction(ACTIONS.PAUSE)
     }    
 
     async delete() {
@@ -59,10 +63,10 @@ export default class Service {
         return res?.statusCode == fn.STATUS_CODES.OK
     }
 
-    resume = () => this.#paused ? false : this.#runAction(Actions.RESUME)
-    redeploy = () => this.#runAction(Actions.REDEPLOY)
+    resume = () => this.#paused ? false : this.#runAction(ACTIONS.RESUME)
+    redeploy = () => this.#runAction(ACTIONS.REDEPLOY)
 
-    #runAction = async (action: Actions | ActionType) => {
+    #runAction = async (action: Action) => {
         const res = await fn.sendRequest(`${this.#serviceURL}/${action}`, 
               fn.options(this.#authToken, 'POST')) as APIResponse
 

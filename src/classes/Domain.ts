@@ -1,9 +1,7 @@
-//@ts-nocheck
-import { APIResponse } from '../interfaces/common/helpers'
+import * as fn from '../utils/fn.js'
+import { IDomain, DomainReqParams } from '../types.js'
 
-import * as fn from '../utils/fn'
-
-export default class Domain {
+export class Domain {
     #domainID: string
     #authToken: string
 
@@ -36,7 +34,7 @@ export default class Domain {
     static get = async (id: string, token?: string) => 
         await Domain.#req({ id, token, method: 'GET' }) as IDomain
 
-    refresh = () => Domain.create(this.#domainID, this.#authToken)
+    refresh = () => Domain.refresh(this.#domainID, this.#authToken)
     static refresh = async (id: string, token?: string) => 
         await Domain.#req({ id, token, method: 'POST' }) as boolean
 

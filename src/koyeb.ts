@@ -1,16 +1,17 @@
 // Provide main classes
-export { default as App } from './classes/App'
-export { default as Service } from './classes/Service'
-export { default as Instance } from './classes/Instance'
-export { default as Deployment } from './classes/Deployment'
-export { default as Logs } from './classes/Logs'
-export { default as Metrics } from './classes/Metrics'
-export { default as Organization } from './classes/Organization'
-export { default as Repository } from './classes/Repository'
-export { default as Domain } from './classes/Domain'
+export { App } from './classes/App.js'
+export { Service } from './classes/Service.js'
+export { Instance } from './classes/Instance.js'
+export { Deployment } from './classes/Deployment.js'
+export { Logs } from './classes/Logs.js'
+export { Metrics } from './classes/Metrics.js'
+export { Organization } from './classes/Organization.js'
+export { Repository } from './classes/Repository.js'
+export { Domain } from './classes/Domain.js'
+export { AuthError } from './utils/errors.js'
 
 // Provide util methods
 export {
     getToken as getGlobalToken,
     setToken as setGlobalToken 
-} from './utils/fn'
+} from './utils/fn.js'

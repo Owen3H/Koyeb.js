@@ -1,6 +1,6 @@
-import * as fn from '../utils/fn'
+import * as fn from '../utils/fn.js'
 
-export default class Organization {
+export class Organization {
     #authToken: string
     #id: string
 

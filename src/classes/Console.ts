@@ -1,4 +1,5 @@
 import WebSocket from 'ws'
+import { WsMessage } from '../types.js'
 
 class Console extends WebSocket {
     constructor(url: string, token: string) {

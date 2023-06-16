@@ -1,6 +1,7 @@
 import * as fn from '../utils/fn.js'
+import { IDeployment } from '../types.js'
 
-export default class Deployment {
+export class Deployment {
     #deploymentID: string
     #authToken: string
 

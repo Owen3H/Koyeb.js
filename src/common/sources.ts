@@ -1,14 +1,14 @@
-type DockerSource = DockerBaseMetadata & {
+export type DockerSource = DockerBaseMetadata & {
     image_registry_secret: string
     image: string
 }
 
-type DockerBuilder = DockerBaseMetadata & {
+export type DockerBuilder = DockerBaseMetadata & {
     dockerfile: string
     target: string
 }
 
-type GitSource = GitBaseMetadata & BuildpackBuilder & {
+export type GitSource = GitBaseMetadata & BuildpackBuilder & {
     tag: string
     no_deploy_on_push: boolean
     workdir: string
@@ -16,28 +16,28 @@ type GitSource = GitBaseMetadata & BuildpackBuilder & {
     docker?: DockerBuilder
 }
 
-type DockerBaseMetadata = {
+export type DockerBaseMetadata = {
     command: string
     args: string[]
     entrypoint: string[]
 }
 
-type BuildpackBuilder = {
+export type BuildpackBuilder = {
     build_command: string
     run_command: string
 }
 
-type GitBaseMetadata = {
+export type GitBaseMetadata = {
     repository: string
     branch: string
     sha: string
 }
 
-type Provider = "UNKNOWN" | "GITHUB"
-type TriggerType = "UNKNOWN_TYPE" | "GIT" | "RESUME"
-type Actor = "UNKNOWN_ACTOR" | "USER" | "SYSTEM"
+export type Provider = "UNKNOWN" | "GITHUB"
+export type TriggerType = "UNKNOWN_TYPE" | "GIT" | "RESUME"
+export type Actor = "UNKNOWN_ACTOR" | "USER" | "SYSTEM"
 
-type GitTrigger = {
+export type GitTrigger = {
     type: TriggerType
     actor: Actor
     git: GitBaseMetadata & {

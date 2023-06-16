@@ -1,6 +1,7 @@
 import { Readable } from 'stream'
-import { request, Dispatcher } from 'undici'
-import { AuthError } from './errors'
+import { request, Dispatcher, FormData } from 'undici'
+import { AuthError } from './errors.js'
+import { HttpMethod, ReqOptions } from '../types.js'
 
 //#region Token Authentication
 let globalToken: string
@@ -71,12 +72,12 @@ async function jsonRequest(endpoint: string, token?: string, method: HttpMethod 
     return res?.body.json()
 }
 
-const buildURL = (url: string | URL, params: {} | string | URLSearchParams | Record<string, string>) => {
-    url = new URL(url)
+const buildURL = (url: string, params: {} | string | URLSearchParams | Record<string, string>) => {
+    const _url = new URL(url)
     params = new URLSearchParams(params)
     
-    url.search = params.toString()
-    return url
+    _url.search = params.toString()
+    return _url
 }
 //#endregion
 

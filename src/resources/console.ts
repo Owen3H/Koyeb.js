@@ -1,4 +1,4 @@
-type WsCommandBody = {
+export type WsCommandBody = {
     command: string[],
     /** Must be Base64 encoded! */
     data?: string | Buffer,
@@ -6,7 +6,7 @@ type WsCommandBody = {
     ttyWidth?: number
 }
 
-type WsMessage = {
+export type WsMessage = {
     id: string, 
     body: {
         command: string[],

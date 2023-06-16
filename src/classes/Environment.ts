@@ -1,5 +1,11 @@
 import * as fn from "../utils/fn.js"
 
+import { 
+    DeploymentList, 
+    IDeployment, 
+    DeploymentEnv 
+} from '../types.js'
+
 const currentDeployment = (id: string, token: string) =>
     fn.jsonRequest(`/deployments?service_id=${id}`, token).then((arr: DeploymentList) => arr.deployments[0])
     

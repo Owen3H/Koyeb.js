@@ -1,10 +1,15 @@
-//@ts-nocheck
-import { APIResponse } from '../interfaces/common/helpers'
-import { MetricTypes } from '../utils/enums'
+import * as fn from '../utils/fn.js'
 
-import * as fn from '../utils/fn'
+import {
+    APIResponse,
+    MetricsQuery,
+    MetricCollection,
+    MetricsResponse,
+    Metric,
+    METRICS
+} from '../types.js'
 
-export default class Metrics {
+export class Metrics {
     #instanceID: string
     #authToken: string
 
@@ -17,7 +22,7 @@ export default class Metrics {
 
     all = (id: string, includeLabels = true) => Metrics.all(id, this.#authToken, includeLabels)
     static async all(id: number | string, token: string, includeLabels = true) {
-        const values = Object.values(MetricTypes)
+        const values = Object.values(METRICS)
         const collection = {}
 
         for (const type of values) {
@@ -29,13 +34,14 @@ export default class Metrics {
             if (!res) continue
             if (!includeLabels) delete res[0].labels
 
+            //@ts-ignore
             collection[type] = res
         }
 
         return collection as MetricCollection
     }
 
-    get = (metric: MetricType | MetricTypes) => Metrics.get({ 
+    get = (metric: Metric) => Metrics.get({ 
         instance_id: this.#instanceID, 
         name: metric 
     }, this.#authToken)

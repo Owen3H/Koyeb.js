@@ -1,7 +1,9 @@
-import * as fn from "../utils/fn"
-import { default as Service } from "./Service"
+import * as fn from "../utils/fn.js"
 
-export default class App {
+import { IApp, IService } from "../types.js"
+import { Service } from "./Service.js"
+
+export class App {
     #appID: string
     #authToken: string
 

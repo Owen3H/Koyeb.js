@@ -1,7 +1,9 @@
-import * as fn from '../utils/fn'
-import { Console, exec } from './Console'
+import * as fn from '../utils/fn.js'
 
-export default class Instance {
+import { Console, exec } from './Console.js'
+import { WsCommandBody } from '../types.js'
+
+export class Instance {
     #instanceID: string
     #authToken: string
 

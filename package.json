@@ -4,6 +4,7 @@
   "description": "An unofficial wrapper for interacting with the Koyeb API.",
   "main": "dist/cjs/koyeb.js",
   "module": "dist/esm/koyeb.js",
+  "types": "dist/types/types.d.ts",
   "type": "module",
   "scripts": {
     "test": "cd test-pkg & npm test",

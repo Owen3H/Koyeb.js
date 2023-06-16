@@ -1,4 +1,12 @@
-type IDeployment = DeploymentStatusDates & DeploymentIds & {
+import { 
+    Identity, 
+    KeyValue, 
+    GitTrigger, 
+    GitSource,
+    DockerSource
+} from "../types.js"
+
+export type IDeployment = DeploymentStatusDates & DeploymentIds & {
     status: "PENDING" | "PROVISIONING" | "SCHEDULED" | "CANCELING" | "CANCELED" | 
             "ALLOCATING" | "STARTING" | "HEALTHY" | "UNHEALTHY" | "DEGRADED" | 
             "STOPPING" | "STOPPED" | "ERRORING" | "ERROR"
@@ -10,7 +18,7 @@ type IDeployment = DeploymentStatusDates & DeploymentIds & {
     deployment_group: string
 }
 
-type DeploymentStatusDates = {
+export type DeploymentStatusDates = {
     created_at: string
     updated_at: string
     allocated_at: string
@@ -19,26 +27,26 @@ type DeploymentStatusDates = {
     terminated_at: string
 }
 
-type DeploymentIds = Omit<Identity, "name"> & {
+export type DeploymentIds = Omit<Identity, "name"> & {
     app_id: string
     service_id: string
     parent_id: string
     child_id: string
 }
 
-type DeploymentList = {
+export type DeploymentList = {
     deployments: IDeployment[]
     limit: number
     offset: number
     count: number
 }
 
-type DeploymentInstanceType = {
+export type DeploymentInstanceType = {
     scopes: string[]
     type: string
 }
 
-type DeploymentHealthCheck = {
+export type DeploymentHealthCheck = {
     grace_period: number
     interval: number
     restart_limit: number
@@ -52,30 +60,30 @@ type DeploymentHealthCheck = {
     }
 }
 
-type DeploymentPort = {
+export type DeploymentPort = {
     port: number
     protocol: "tcp" | "http" | "http2"
 }
 
-type DeploymentRoute = {
+export type DeploymentRoute = {
     port: number
     path: string
 }
 
-type DeploymentEnv = {
+export type DeploymentEnv = {
     scopes: string[]
     key: string
     value: string
     secret?: string
 }
 
-type DeploymentScaling = {
+export type DeploymentScaling = {
     scopes: string[]
     min: number
     max: number
 }
 
-type DeploymentDefinition = {
+export type DeploymentDefinition = {
     name: string
     type: "INVALID" | "WEB" | "WORKER"
     routes: DeploymentRoute[]
@@ -90,7 +98,7 @@ type DeploymentDefinition = {
     git?: GitSource
 }
 
-type DeploymentBuildAttempt = {
+export type DeploymentBuildAttempt = {
     id: number
     status: "UNKNOWN" | "RUNNING" | "FAILED" | "COMPLETED"
     messages: string[]
@@ -98,12 +106,12 @@ type DeploymentBuildAttempt = {
     finished_at: string
 }
 
-type DeploymentProvisioningInfoStage = Omit<DeploymentBuildAttempt, "id"> & {
+export type DeploymentProvisioningInfoStage = Omit<DeploymentBuildAttempt, "id"> & {
     name: string
     build_attempts: DeploymentBuildAttempt[]
 }
 
-type DeploymentProvisioningInfo = {
+export type DeploymentProvisioningInfo = {
     sha: string
     image: string
     stages: DeploymentProvisioningInfoStage[]

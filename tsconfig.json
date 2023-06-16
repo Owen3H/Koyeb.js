@@ -1,24 +1,19 @@
 {
     "compilerOptions": {
         "module": "ES2022",
+        "lib": ["ES2022"],
         "target": "ES2017",
-        "outDir": "dist",
         "moduleResolution": "node",
-        "allowJs": true,
         "noImplicitAny": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
+        "removeComments": true,
         "types": ["node"],
-        "typeRoots": [
-            "src/interfaces",
-            "node_modules/@types"
-        ],
         "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
         "importHelpers": true,
-        "experimentalDecorators": true,
         "skipDefaultLibCheck": true,
-        "skipLibCheck": true,
+        "skipLibCheck": false,
+        "declarationDir": "dist/types",
         "declaration": true
     },
     "include": ["src"]

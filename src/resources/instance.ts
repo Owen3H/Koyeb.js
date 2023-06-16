@@ -1,14 +1,20 @@
-type InstanceListEventResponse = ResponseListItem & {
+import { 
+    AppBaseMetadata, 
+    ResponseListItem, 
+    BaseEventDateTimes 
+} from "../types.js"
+
+export type InstanceListEventResponse = ResponseListItem & {
     order?: string
     events: InstanceEvent[]
 }
 
-type InstanceListResponse = ResponseListItem & {
+export type InstanceListResponse = ResponseListItem & {
     order?: string
     instances: Omit<IInstance, "hypervisor" | "started_at" | "terminated_at">[]
 }
 
-type InstanceEvent = {
+export type InstanceEvent = {
     id: string
     when: string
     organization_id: string
@@ -18,10 +24,10 @@ type InstanceEvent = {
     metadata: {}
 }
 
-type InstanceStatus = "ALLOCATING" | "STARTING" | "HEALTHY" | "UNHEALTHY" | 
+export type InstanceStatus = "ALLOCATING" | "STARTING" | "HEALTHY" | "UNHEALTHY" | 
                       "STOPPING" | "STOPPED" | "ERROR"
 
-type IInstance = BaseEventDateTimes & Omit<AppBaseMetadata, "status" | "version" | "name"> & {
+export type IInstance = BaseEventDateTimes & Omit<AppBaseMetadata, "status" | "version" | "name"> & {
     service_id: string
     regional_deployment_id: string
     allocation_id: string
