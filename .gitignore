@@ -1,6 +1,5 @@
 # Custom exclusions
 /node_modules
-src/decorators
 /dist
 
 # Testing
