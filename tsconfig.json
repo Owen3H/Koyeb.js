@@ -3,7 +3,7 @@
         "module": "ES2022",
         "lib": ["ES2022"],
         "target": "ES2017",
-        "moduleResolution": "node",
+        "moduleResolution": "nodenext",
         "noImplicitAny": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
@@ -13,7 +13,6 @@
         "importHelpers": true,
         "skipDefaultLibCheck": true,
         "skipLibCheck": false,
-        "declarationDir": "dist/types",
         "declaration": true
     },
     "include": ["src"]
