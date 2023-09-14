@@ -12,8 +12,15 @@ import { currentDeployment, Environment } from "./Environment.js"
 export class Service {
     #authToken: string
 
+    get authToken() { return this.#authToken }
+
     #serviceID: string
+    
+    get serviceID() { return this.#serviceID }
+
     #serviceURL: string
+
+    get serviceURL() { return this.#serviceURL }
 
     #paused = false
  
@@ -21,10 +28,11 @@ export class Service {
     
     constructor(identifier: string | IService, token?: string) {
         if (!identifier) throw new Error('Parameter `identifier` must be of type string or IService.')
-        this.#authToken = fn.checkValidToken(token)
 
+        this.#authToken = fn.checkValidToken(token)
         this.#serviceID = typeof identifier == 'string' ? identifier : identifier.id
         this.#serviceURL = `${fn.domain}/services/${this.#serviceID}`
+        
         this.Environment = new Environment(this.#serviceID, this.#authToken)
     }
 

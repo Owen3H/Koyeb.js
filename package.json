@@ -2,13 +2,16 @@
   "name": "koyeb.js",
   "version": "4.1.0",
   "description": "An unofficial wrapper for interacting with the Koyeb API.",
-  "main": "dist/cjs/koyeb.js",
-  "module": "dist/esm/koyeb.js",
-  "types": "dist/types/types.d.ts",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs",
+    "default": "./dist/index.cjs"
+  },
+  "types": "dist/types.d.ts",
   "type": "module",
   "scripts": {
     "test": "cd test-pkg & npm test",
-    "build": "rmdir dist /S /Q && npm run build:esm && npm run build:cjs",
+    "build": "rimraf dist && npm run build:esm && npm run build:cjs",
     "build:esm": "tsc --outDir dist/esm",
     "build:cjs": "tsc --module CommonJS --outDir dist/cjs"
   },
@@ -34,16 +37,21 @@
   },
   "homepage": "https://github.com/Owen3H/Koyeb.js#readme",
   "dependencies": {
-    "tslib": "^2.5.3",
-    "undici": "^5.14.0",
-    "ws": "^8.11.0"
+    "tslib": "^2.6.2",
+    "undici": "^5.24.0",
+    "ws": "^8.14.1"
   },
   "engines": {
     "node": "^14.13.1 || >=16.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20.2.5",
-    "@types/ws": "^8.5.4",
-    "typescript": "^5.1.3"
+    "@types/node": "^20.6.0",
+    "@types/ws": "^8.5.5",
+    "eslint": "^8.49.0",
+    "rimraf": "^5.0.1",
+    "rollup": "^3.29.1",
+    "typedoc": "^0.25.1",
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.4"
   }
 }
