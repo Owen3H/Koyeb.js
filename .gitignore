@@ -1,9 +1,10 @@
-# Custom exclusions
-/node_modules
-/dist
+# Log outputs
+logs
+*.log
+npm-debug.log*
 
-# Testing
-/test-pkg
+# Dependency directories
+node_modules/
 
 # Optional npm cache directory
 .npm
@@ -11,7 +12,6 @@
 # Output of 'npm pack'
 *.tgz
 
-# Log outputs
-logs
-*.log
-npm-debug.log*
+# Custom exclusions
+/dist
+test-pkg/

@@ -2,21 +2,29 @@
   "name": "koyeb.js",
   "version": "4.1.0",
   "description": "An unofficial wrapper for interacting with the Koyeb API.",
+  "type": "module",
+  "types": "dist/types.d.ts",
   "exports": {
     "import": "./dist/index.js",
     "require": "./dist/index.cjs",
     "default": "./dist/index.cjs"
   },
-  "types": "dist/types.d.ts",
-  "type": "module",
   "scripts": {
-    "test": "cd test-pkg & npm test",
-    "build": "rimraf dist && npm run build:esm && npm run build:cjs",
+    "prepublishOnly": "pnpm run ci",
+    "ci": "pnpm run lint && pnpm run vitest && pnpm run build",
+    "test": "cd test-pkg & pnpm test",
+    "build": "rimraf dist && pnpm run build:esm && pnpm run build:cjs",
     "build:esm": "tsc --outDir dist/esm",
-    "build:cjs": "tsc --module CommonJS --outDir dist/cjs"
+    "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
+    "docs": "npx typedoc --options typedoc.json",
+    "vitest": "vitest run --config ./vitest.config.ts",
+    "lint": "npx eslint ."
   },
   "files": [
-    "dist"
+    "dist",
+    "src",
+    "package.json",
+    "README.md"
   ],
   "funding": "https://github.com/sponsors/Owen3H",
   "repository": {
@@ -36,13 +44,13 @@
     "url": "https://github.com/Owen3H/Koyeb.js/issues"
   },
   "homepage": "https://github.com/Owen3H/Koyeb.js#readme",
+  "engines": {
+    "node": "^14.13.1 || >=16.0.0"
+  },
   "dependencies": {
     "tslib": "^2.6.2",
     "undici": "^5.24.0",
     "ws": "^8.14.1"
-  },
-  "engines": {
-    "node": "^14.13.1 || >=16.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.6.0",
