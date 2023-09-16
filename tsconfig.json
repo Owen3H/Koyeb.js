@@ -23,7 +23,7 @@
         "vitest.config.ts",
         "typedoc.json",
         "node_modules", 
-        "docs", 
+        "docs",
         "dist",
         "tests"
     ]
