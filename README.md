@@ -10,7 +10,7 @@
 
 An *unofficial* wrapper for the [Koyeb REST API](https://koyeb.com/docs/api), enabling you to interact with apps, services and more.<br> Designed to have a simple, intuitive syntax using asynchronous functions.<br>
   
-[View documentation](https://owen3h.github.io/koyeb.js)
+[View documentation](https://owen3h.github.io/Koyeb.js/)
 
 ## Features
   <details>
