@@ -11,7 +11,7 @@
   },
   "scripts": {
     "prepublishOnly": "pnpm run ci",
-    "ci": "pnpm run lint && pnpm run build",
+    "ci": "pnpm run lint && pnpm run vitest && pnpm run build",
     "test": "cd test-pkg & pnpm test",
     "build": "rimraf dist && rollup -c && pnpm run dts && pnpm run docs",
     "dts": "tsc --declaration true --emitDeclarationOnly true --declarationMap",
