@@ -18,8 +18,8 @@ export class Repository {
         let url = domain + `/git/${endpoint}`
         if (query) url = buildURL(url, query).href
 
-        const res = await sendRequest(url, opts).then((res: APIResponse) => res.body.json())
-        return res?.[endpoint] 
+        const res = await sendRequest(url, opts).then((res: APIResponse) => res.body.json()) as any
+        return res?.[endpoint]
     }
 
     static async list(query?: RepositoryQuery, token?: string) {

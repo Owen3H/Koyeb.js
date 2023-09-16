@@ -1,10 +1,8 @@
 {
     "compilerOptions": {
-        "module": "ES2022",
-        "lib": ["ES2022"],
+        "module": "NodeNext",
         "target": "ES2017",
-        "moduleResolution": "nodenext",
-        "noImplicitAny": true,
+        "moduleResolution": "NodeNext",
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "removeComments": true,
@@ -13,7 +11,14 @@
         "importHelpers": true,
         "skipDefaultLibCheck": true,
         "skipLibCheck": false,
-        "declaration": true
+        "incremental": true,
+        "strictFunctionTypes": true,
+        "baseUrl": ".",
+        "outDir": "dist",
+        "paths": {
+            "tslib" : ["./node_modules/tslib/tslib.d.ts"]
+        }
     },
-    "include": ["src"]
+    "include": ["src"],
+    "exclude": ["node_modules", "docs", "dist", "tests"]
 }

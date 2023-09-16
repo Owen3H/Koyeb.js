@@ -5,17 +5,16 @@
   "type": "module",
   "types": "dist/types.d.ts",
   "exports": {
-    "import": "./dist/index.js",
-    "require": "./dist/index.cjs",
-    "default": "./dist/index.cjs"
+    "import": "./dist/koyeb.js",
+    "require": "./dist/koyeb.cjs",
+    "default": "./dist/koyeb.cjs"
   },
   "scripts": {
     "prepublishOnly": "pnpm run ci",
     "ci": "pnpm run lint && pnpm run vitest && pnpm run build",
     "test": "cd test-pkg & pnpm test",
-    "build": "rimraf dist && pnpm run build:esm && pnpm run build:cjs",
-    "build:esm": "tsc --outDir dist/esm",
-    "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
+    "build": "rimraf dist && rollup -c && pnpm run dts && pnpm run docs",
+    "dts": "tsc --declaration true --emitDeclarationOnly true --declarationMap",
     "docs": "npx typedoc --options typedoc.json",
     "vitest": "vitest run --config ./vitest.config.ts",
     "lint": "npx eslint ."
@@ -53,12 +52,19 @@
     "ws": "^8.14.1"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.4",
+    "@rollup/plugin-json": "^6.0.0",
+    "@rollup/plugin-node-resolve": "^15.2.1",
     "@types/node": "^20.6.0",
     "@types/ws": "^8.5.5",
     "eslint": "^8.49.0",
     "rimraf": "^5.0.1",
     "rollup": "^3.29.1",
+    "rollup-plugin-esbuild": "^5.0.0",
+    "rollup-plugin-polyfill-node": "^0.12.0",
+    "rollup-plugin-typescript-paths": "^1.4.0",
     "typedoc": "^0.25.1",
+    "typedoc-theme-hierarchy": "^4.1.1",
     "typescript": "^5.2.2",
     "vitest": "^0.34.4"
   }

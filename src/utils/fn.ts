@@ -53,7 +53,10 @@ const options = (
 //#endregion
 
 //#region URL/Request Helper Methods
-const sendRequest = async (url: string | URL, opts?: ReqOptions) => {
+const sendRequest = async (
+    url: string | URL, 
+    opts?: ReqOptions
+): Promise<any> => {
     try { return await opts ? request(url, opts) : request(url) }
     catch(e) { console.error(e) }
 }
@@ -65,11 +68,15 @@ async function textRequest(url: string | URL, opts: Dispatcher.DispatchOptions) 
     return res?.body.text() as Promise<string>
 } 
 
-async function jsonRequest(endpoint: string, token?: string, method: HttpMethod = 'GET') {
+async function jsonRequest(
+    endpoint: string, 
+    token?: string, 
+    method: HttpMethod = 'GET'
+): Promise<any> {
     try { var res = await sendRequest(domain + endpoint, options(token, method)) }
     catch(e) { console.error(e) }
 
-    return res?.body.json()
+    return res?.body.json() as any
 }
 
 const buildURL = (url: string, params: {} | string | URLSearchParams | Record<string, string>) => {

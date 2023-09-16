@@ -10,7 +10,7 @@
 
 An *unofficial* wrapper for the [Koyeb REST API](https://koyeb.com/docs/api), enabling you to interact with apps, services and more.<br> Designed to have a simple, intuitive syntax using asynchronous functions.<br>
   
-> This package depends on [Undici](https://npmjs.com/package/undici), a modern HTTP client with a very fast request implementation.
+[View documentation](https://owen3h.github.io/koyeb.js)
 
 ## Features
   <details>
@@ -40,15 +40,12 @@ An *unofficial* wrapper for the [Koyeb REST API](https://koyeb.com/docs/api), en
 
 ## Install & Import
 ```bash
-npm i koyeb.js
+pnpm i koyeb.js
 ```
 
 ```js
-// ESM (Supports top-level await)
-import * as Koyeb from 'koyeb.js'
-
-// or
-const Koyeb = require('koyeb.js')
+import * as Koyeb from 'koyeb.js' // ESM
+const Koyeb = require('koyeb.js') // CommonJS
 ```
 
 ### Secure your Auth Token
@@ -73,13 +70,14 @@ const myApp = await new Koyeb.App(token).fromName('appName')
 
 ### Service creation and control
 ```js
-// Here we create a service from the first in the app list.
+// Creating a service from the first in the app list.
 const services = await myApp.listServices(),
       service = new Koyeb.Service(services[0].id, token)
 
-console.log(service.paused()) // Calls status() internally and returns a true if we received 'PAUSED'.
-console.log(service.status()) // Calls info() internally and returns a string.
-console.log(service.info()) // Returns a JSON object.
+// Calls `status()` internally and returns a true if we received 'PAUSED'.
+console.log(service.paused()) 
+console.log(service.status())
+console.log(service.info())
 
 // Each will return true/false if the request succeeded/failed.
 // Calling resume/pause when already running/paused will return false.

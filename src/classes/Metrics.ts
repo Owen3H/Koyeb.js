@@ -51,7 +51,7 @@ export class Metrics {
         if (!query.name) throw new Error('Must specify `name` to query the correct metric.')
 
         const url = fn.buildURL(fn.domain + '/streams/metrics', query)
-        const res = await fn.sendRequest(url, fn.options(token)).then(res => (res as APIResponse).body.json())
+        const res = await fn.sendRequest(url, fn.options(token)).then(res => (res as APIResponse).body.json()) as any
         
         return res.metrics as MetricsResponse
     }

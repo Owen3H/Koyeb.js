@@ -1,0 +1,12 @@
+{
+    "name": "KoyebJS",
+    "gitRevision": "main",
+    "entryPoints": ["./src"],
+    "entryPointStrategy": "expand",
+    "out": "docs",
+    "readme": "./README.md",
+    "hideGenerator": true,
+    "excludePrivate": true,
+    "theme": "hierarchy",
+    "plugin": ["typedoc-theme-hierarchy"],
+}
