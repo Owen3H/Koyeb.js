@@ -23,7 +23,8 @@
     "dist",
     "src",
     "package.json",
-    "README.md"
+    "README.md",
+    "!**/*.tsbuildinfo"
   ],
   "funding": "https://github.com/sponsors/Owen3H",
   "repository": {
