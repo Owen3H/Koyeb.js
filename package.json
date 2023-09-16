@@ -1,6 +1,6 @@
 {
   "name": "koyeb.js",
-  "version": "4.2.2",
+  "version": "4.2.3",
   "description": "An unofficial wrapper for interacting with the Koyeb API.",
   "type": "module",
   "types": "dist/koyeb.d.ts",
