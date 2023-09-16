@@ -15,13 +15,12 @@ const setToken = (token: string) => new Promise((resolve, reject) => {
 }).catch(console.error)
 
 const checkValidToken = (token: string) => {
-    let validToken = null
     if (!token) {
-        validToken = getToken()
-        if (!validToken) throw new AuthError(AuthError.MISSING_TOKEN)
+        token = getToken()
+        if (!token) throw new AuthError(AuthError.MISSING_TOKEN)
     }
 
-    return validToken
+    return token
 }
 //#endregion
 
