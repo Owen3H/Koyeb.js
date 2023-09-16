@@ -7,12 +7,12 @@ import { HttpMethod, ReqOptions } from '../types.js'
 let globalToken: string
 
 const getToken = () => globalToken || null
-const setToken = (token: string) => new Promise((resolve, reject) => {
+const setToken = (token: string): Promise<string> => new Promise((resolve, reject) => {
     if (!token) return reject('Could not set global auth token! Token is invalid.')
 
     globalToken = token
     resolve(token)
-}).catch(console.error)
+})
 
 const checkValidToken = (token: string) => {
     if (!token) {

@@ -13,5 +13,7 @@ node_modules/
 *.tgz
 
 # Custom exclusions
+tsconfig.tsbuildinfo
 /dist
 test-pkg/
+.env

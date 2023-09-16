@@ -8,7 +8,6 @@ import commonjs from '@rollup/plugin-commonjs'
 import { typescriptPaths } from 'rollup-plugin-typescript-paths'
 
 import nodePolyfills from 'rollup-plugin-polyfill-node'
-//import dts from 'rollup-plugin-dts'
 
 const generatedCode = {
     arrowFunctions: true,
@@ -41,14 +40,5 @@ const source = {
         esbuild({ exclude: ["**/*.test.ts"] })
     ]
 }
-
-// const types = {
-//     input: 'src/types/index.ts',
-//     output: [{ 
-//         file: 'dist/types.d.ts', 
-//         format: 'es' 
-//     }],
-//     plugins: [dts()]
-// }
 
 export default [source]
