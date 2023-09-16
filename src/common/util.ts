@@ -8,7 +8,7 @@ export type StringifyObjectValues<T> = {
 
 export type IAny = {
     "@type": string
-    [key: string]: null | undefined | string | boolean | number | {} | []
+    [key: string]: null | undefined | string | boolean | number | object | Array<any>
 }
 
 export type ProtobufAny = {

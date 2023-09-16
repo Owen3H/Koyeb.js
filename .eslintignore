@@ -1,5 +1,10 @@
-dist/
 tests/
+test-pkg/
+
+dist/
+docs/
 node_modules/
+
 vitest.config.ts
-/docs
+rollup.config.mjs
+typedoc.json

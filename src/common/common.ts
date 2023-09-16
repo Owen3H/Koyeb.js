@@ -74,7 +74,7 @@ export type LogsReponse = {
 export type LogEntry = {
     msg: string
     created_at: string
-    labels: {}
+    labels: object
 }
 
 export type PublicUser = {

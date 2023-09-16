@@ -68,7 +68,7 @@ export class Service {
         const res = await fn.sendRequest(`${this.#serviceURL}`, 
             fn.options(this.#authToken, 'DELETE')) as APIResponse
 
-        return res?.statusCode == fn.STATUS_CODES.OK
+        return res?.statusCode === fn.STATUS_CODES.OK
     }
 
     resume = () => this.#paused ? false : this.#runAction(ACTIONS.RESUME)
@@ -79,6 +79,6 @@ export class Service {
               fn.options(this.#authToken, 'POST')) as APIResponse
 
         this.#paused = action == 'pause' ? true : false
-        return res?.statusCode == fn.STATUS_CODES.OK
+        return res?.statusCode === fn.STATUS_CODES.OK
     }
 }

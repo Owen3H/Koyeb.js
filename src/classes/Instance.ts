@@ -42,11 +42,12 @@ export class Instance {
 
     executeCommand = (body: WsCommandBody) => Instance.executeCommand(this.#instanceID, body, this.#authToken)
     static executeCommand = (id: string, body: WsCommandBody, token?: string) => {
-        let { command, data, ttyHeight, ttyWidth } = body
+        const { command, ttyHeight, ttyWidth } = body
 
         if (!command) throw new Error(`Cannot execute invalid command on instance: ${id}`)
         if (command.length < 1) throw new Error(`Cannot execute empty command on instance: ${id}`)
 
+        let data = body.data
         //if (!data) throw new Error(`Invalid parameter 'data' cannot be passed to instance: ${id}`)
 
         //#region Try encode the data if not already base64.

@@ -21,7 +21,7 @@ export type InstanceEvent = {
     instance_id: string
     type: string
     message: string
-    metadata: {}
+    metadata: object
 }
 
 export type InstanceStatus = "ALLOCATING" | "STARTING" | "HEALTHY" | "UNHEALTHY" | 

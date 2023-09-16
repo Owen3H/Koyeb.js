@@ -15,7 +15,7 @@ const setToken = (token: string) => new Promise((resolve, reject) => {
 }).catch(console.error)
 
 const checkValidToken = (token: string) => {
-    var validToken: string
+    let validToken = null
     if (!token) {
         validToken = getToken()
         if (!validToken) throw new AuthError(AuthError.MISSING_TOKEN)
@@ -29,12 +29,12 @@ const checkValidToken = (token: string) => {
 const isBase64 = (str: string = '') => encode(decode(str)) == str
 const decode = (str: string) => Buffer.from(str, 'base64')
 const encode = (buffer: Buffer) => buffer.toString('base64')
-const enum STATUS_CODES {
-    OK = 200,
-    VALIDATION_ERROR = 400,
-    NO_PERMISSION = 403,
-    EMPTY_RESOURCE = 404
-}
+const STATUS_CODES = {
+    OK: 200,
+    VALIDATION_ERROR: 400,
+    NO_PERMISSION: 403,
+    EMPTY_RESOURCE: 404
+} as const
 
 const domain = 'https://app.koyeb.com/v1'
 const options = (
@@ -62,7 +62,8 @@ const sendRequest = async (
 }
 
 async function textRequest(url: string | URL, opts: Dispatcher.DispatchOptions) {
-    try { var res = await sendRequest(url, opts) }
+    let res = null
+    try { res = await sendRequest(url, opts) }
     catch(e) { console.error(e) }
 
     return res?.body.text() as Promise<string>
@@ -73,15 +74,16 @@ async function jsonRequest(
     token?: string, 
     method: HttpMethod = 'GET'
 ): Promise<any> {
-    try { var res = await sendRequest(domain + endpoint, options(token, method)) }
+    let res = null
+    try { res = await sendRequest(domain + endpoint, options(token, method)) }
     catch(e) { console.error(e) }
 
     return res?.body.json() as any
 }
 
-const buildURL = (url: string, params: {} | string | URLSearchParams | Record<string, string>) => {
+const buildURL = (url: string, params: object | string | URLSearchParams | Record<string, string>) => {
     const _url = new URL(url)
-    params = new URLSearchParams(params)
+    params = new URLSearchParams(params as any)
     
     _url.search = params.toString()
     return _url

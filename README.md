@@ -40,7 +40,7 @@ An *unofficial* wrapper for the [Koyeb REST API](https://koyeb.com/docs/api), en
 
 ## Install & Import
 ```bash
-pnpm i koyeb.js
+pnpm add koyeb.js
 ```
 
 ```js

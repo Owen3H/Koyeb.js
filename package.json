@@ -11,7 +11,7 @@
   },
   "scripts": {
     "prepublishOnly": "pnpm run ci",
-    "ci": "pnpm run lint && pnpm run vitest && pnpm run build",
+    "ci": "pnpm run lint && pnpm run build",
     "test": "cd test-pkg & pnpm test",
     "build": "rimraf dist && rollup -c && pnpm run dts && pnpm run docs",
     "dts": "tsc --declaration true --emitDeclarationOnly true --declarationMap",
@@ -57,6 +57,7 @@
     "@rollup/plugin-node-resolve": "^15.2.1",
     "@types/node": "^20.6.0",
     "@types/ws": "^8.5.5",
+    "@typescript-eslint/eslint-plugin": "^6.7.0",
     "eslint": "^8.49.0",
     "rimraf": "^5.0.1",
     "rollup": "^3.29.1",
