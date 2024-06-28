@@ -1,12 +1,7 @@
-<div align="left">
-  <a href="https://koyeb.com/docs/api">
-    <img align="left" src="https://www.koyeb.com/static/images/icons/koyeb.svg" alt="Logo" width="80" height="80">
-  </a>
-  <h2 align="left">Koyeb.js</h2>
-  
-  [![Github Repo Size](https://img.shields.io/github/repo-size/Owen3H/Koyeb.js?label=Repository%20Size&logo=Github)](https://github.com/Owen3H/Koyeb.js) 
-  [![Codacy Badge](https://app.codacy.com/project/badge/Grade/77a5d15fa73d426c8210e8606a357e73)](https://app.codacy.com/gh/Owen3H/Koyeb.js/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
-</div>
+## Koyeb.js <img align="left" src="https://www.koyeb.com/static/images/icons/koyeb.svg" alt="Logo" width="80" height="80">
+
+[![Github Repo Size](https://img.shields.io/github/repo-size/Owen3H/Koyeb.js?label=Repository%20Size&logo=Github)](https://github.com/Owen3H/Koyeb.js) 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/77a5d15fa73d426c8210e8606a357e73)](https://app.codacy.com/gh/Owen3H/Koyeb.js/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 An *unofficial* wrapper for the [Koyeb REST API](https://koyeb.com/docs/api), enabling you to interact with apps, services and more.<br> Designed to have a simple, intuitive syntax using asynchronous functions.<br>
   
@@ -39,8 +34,8 @@ An *unofficial* wrapper for the [Koyeb REST API](https://koyeb.com/docs/api), en
   </details>
 
 ## Install & Import
-```bash
-pnpm add koyeb.js
+```console
+bun add koyeb.js
 ```
 
 ```js
@@ -49,18 +44,18 @@ const Koyeb = require('koyeb.js') // CommonJS
 ```
 
 ### Secure your Auth Token
-1. Head to Account ➟ API
+1. Head to `Account` ➟ `API` on [Koyeb](https://www.koyeb.com).
 2. Create a new access token and copy the generated string.
-3. Head to your app settings ➟ Environment Variables ➟ Add Variable
+3. Head to your app settings ➟ `Environment Variables` ➟ `Add Variable`.
 4. Name the variable `AUTH_TOKEN` and paste your copied token in the 'value' field.
 5. Hit 'Apply'. You can now access your token without exposing it to others!
 
-```js
+```ts
 const token = process.env.AUTH_TOKEN
 ```
 
 ### Initialize an App
-```js
+```ts
 const myApp = await new Koyeb.App(token).fromName('appName')
 
 // Alternatively, you can replace fromName with 2 other methods.
@@ -69,10 +64,10 @@ const myApp = await new Koyeb.App(token).fromName('appName')
 ```
 
 ### Service creation and control
-```js
+```ts
 // Creating a service from the first in the app list.
-const services = await myApp.listServices(),
-      service = new Koyeb.Service(services[0].id, token)
+const services = await myApp.listServices()
+const service = new Koyeb.Service(services[0].id, token)
 
 // Calls `status()` internally and returns a true if we received 'PAUSED'.
 console.log(service.paused()) 
@@ -87,7 +82,7 @@ await service.pause()
 ```
 
 ### Get an Instance
-```js
+```ts
 // Returns the application's current instance.
 const myInstance = await new Koyeb.Instance(appID, token).latest()
 
@@ -96,7 +91,7 @@ const myInstance = await new Koyeb.Instance.get(instanceID, token)
 ```
 
 ### Execute commands
-```js
+```ts
 // Returns a promise containing the command result.
 // This example outputs a list of files & directories on the instance.
 const ls = await instance.executeCommand({ command: ['ls'] })
